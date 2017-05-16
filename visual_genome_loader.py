@@ -60,7 +60,7 @@ class VisualGenomeLoader(data.Dataset):
                  train=False, test=False):
         self.root = root
         self.transform = transform
-        self.cache = {}
+        # self.cache = {}
 
         if not osp.exists(self.root):
             raise RuntimeError('Dataset not found ' +
@@ -144,13 +144,13 @@ class VisualGenomeLoader(data.Dataset):
         region = self.region_descriptions[idx]
         image_info = region.image
 
-        if image_info.id not in self.cache:
-            image_path = image_info.url.split('/')[-2:]
-            image_path = osp.join(self.root, *image_path)
-            img = Image.open(image_path).convert('RGB')
-            self.cache[image_info.id] = img
+        # if image_info.id not in self.cache:
+        image_path = image_info.url.split('/')[-2:]
+        image_path = osp.join(self.root, *image_path)
+        img = Image.open(image_path).convert('RGB')
+        # self.cache[image_info.id] = img
 
-        img = self.cache[image_info.id]
+        # img = self.cache[image_info.id]
         img = self.transform(img)
 
         phrase = self.corpus.tokenize(region.phrase)
