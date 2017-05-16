@@ -74,7 +74,7 @@ class VisualGenomeLoader(data.Dataset):
                                self.region_file)
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
-                               self.corpus_file)
+                               self.corpus_filename)
 
         with open(region_path, 'rb') as f:
             self.region_descriptions = torch.load(f)
@@ -129,7 +129,7 @@ class VisualGenomeLoader(data.Dataset):
         corpus.dictionary.add_to_corpus('<unk>')
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
-                               self.corpus_file)
+                               self.corpus_filename)
 
         print("Saving corpus...")
         with open(corpus_file, 'wb') as f:
