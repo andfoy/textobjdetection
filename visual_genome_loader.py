@@ -112,11 +112,12 @@ class VisualGenomeLoader(data.Dataset):
         for region in region_descriptions_full:
             region_descriptions += region
 
+        del region_descriptions_full
         region_path = osp.join(self.data_path, self.processed_folder,
                                self.region_file)
 
         with open(region_path, 'wb') as f:
-            torch.save(self.region_descriptions, f)
+            torch.save(region_descriptions, f)
 
         print("Generating text corpus...")
         corpus = Corpus()
