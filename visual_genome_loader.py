@@ -126,7 +126,7 @@ class VisualGenomeLoader(data.Dataset):
             corpus.add_to_corpus(region.phrase)
             # for region in image_regions:
 
-        corpus.dictionary.add_to_corpus('<unk>')
+        corpus.dictionary.add_word('<unk>')
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_filename)
