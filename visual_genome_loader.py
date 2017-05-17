@@ -3,6 +3,7 @@ import os
 import json
 import torch
 import errno
+import progressbar
 import numpy as np
 import os.path as osp
 from PIL import Image
@@ -155,8 +156,9 @@ class VisualGenomeLoader(data.Dataset):
 
         print("Selecting region descriptions from top images...")
         regions = []
-        for i, region in enumerate(region_descriptions):
-            print("Processing region: {0}".format(i))
+        bar = progressbar.ProgressBar()
+        for region in bar(region_descriptions):
+            # print("Processing region: {0}".format(i))
             if region.image.id in img_top_ids:
                 regions.append(region)
 
