@@ -51,6 +51,18 @@ class Corpus(object):
 
         return ids
 
+    def tokenize_file(self, file_path):
+        tokens = []
+        with open(file_path, 'r') as f:
+            for line in f:
+                words = line.split() + ['<eos>']
+                for word in words:
+                    if word not in self.dictionary.word2idx:
+                        word = '<unk>'
+                    token = self.dictionary.word2idx[word]
+                    tokens.append(token)
+        return torch.LongTensor(tokens)
+
 
 class VisualGenomeLoader(data.Dataset):
     data_path = 'data'
