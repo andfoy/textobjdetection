@@ -137,7 +137,7 @@ class VisualGenomeLoader(data.Dataset):
         for region in region_descriptions_full:
             region_descriptions += region
 
-        del region_descriptions_full
+        # del region_descriptions_full
 
         corpus_path = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
@@ -157,10 +157,10 @@ class VisualGenomeLoader(data.Dataset):
         print("Selecting region descriptions from top images...")
         regions = []
         bar = progressbar.ProgressBar()
-        for region in bar(region_descriptions):
+        for region in bar(region_descriptions_full):
             # print("Processing region: {0}".format(i))
-            if region.image.id in img_top_ids:
-                regions.append(region)
+            if region[0].image.id in img_top_ids:
+                regions += region
 
         print("Splitting region descriptions...")
         train_prop = np.ceil(len(regions) * 0.6)
