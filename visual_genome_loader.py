@@ -235,7 +235,7 @@ class VisualGenomeLoader(data.Dataset):
             for obj in img_obj['objects']:
                 for name in obj['names']:
                     if name in sorted_objs:
-                        valid_img_ids.append[img_obj['image_id']]
+                        valid_img_ids.append(img_obj['image_id'])
                         found = True
                         break
                 if found:
