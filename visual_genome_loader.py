@@ -55,7 +55,7 @@ class Corpus(object):
 
     def tokenize_file(self, file_path):
         tokens = []
-        with open(file_path, 'r') as f:
+        with codecs.open(file_path, 'r', 'utf-8') as f:
             for line in f:
                 words = line.split() + ['<eos>']
                 for word in words:
