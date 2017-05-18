@@ -3,6 +3,7 @@ import os
 import json
 import torch
 import errno
+import codecs
 import progressbar
 import numpy as np
 import os.path as osp
@@ -176,21 +177,21 @@ class VisualGenomeLoader(data.Dataset):
         print("Saving train text corpus...")
         train_text_path = osp.join(self.data_path, self.top_folder,
                                    self.train_text_file)
-        with open(train_text_path, 'w') as f:
+        with codecs.open(train_text_path, 'w', 'utf-8') as f:
             for region in train_regions:
                 f.write(region.phrase + '\n')
 
         print("Saving validation text corpus...")
         val_text_path = osp.join(self.data_path, self.top_folder,
                                  self.val_text_file)
-        with open(val_text_path, 'w') as f:
+        with codecs.open(val_text_path, 'w', 'utf-8') as f:
             for region in val_regions:
                 f.write(region.phrase + '\n')
 
         print("Saving test text corpus...")
         test_text_path = osp.join(self.data_path, self.top_folder,
                                   self.test_text_file)
-        with open(test_text_path, 'w') as f:
+        with codecs.open(test_text_path, 'w', 'utf-8') as f:
             for region in test_regions:
                 f.write(region.phrase + '\n')
 
