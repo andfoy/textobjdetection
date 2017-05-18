@@ -43,7 +43,7 @@ parser.add_argument('--no-cuda', action='store_true',
                     help='disables CUDA training')
 parser.add_argument('--log-interval', type=int, default=200, metavar='N',
                     help='report interval')
-parser.add_argument('--corpus', type=str, default='',
+parser.add_argument('--corpus', type=str, default='data/processed/corpus.pt',
                     help='path to file that contains'
                     ' the text corpus dictionary')
 parser.add_argument('--save', type=str, default='model.pt',
