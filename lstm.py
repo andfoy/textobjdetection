@@ -102,7 +102,7 @@ if osp.exists(args.save):
 # if args.cuda:
     # model.cuda()
 
-model = nn.DataParallel(model)
+# model = nn.DataParallel(model)
 if args.cuda:
     model.cuda()
 
