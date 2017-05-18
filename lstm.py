@@ -8,7 +8,7 @@ import os.path as osp
 from torch.autograd import Variable
 
 # import data
-import model
+import model_lstm
 
 parser = argparse.ArgumentParser(
     description='PyTorch VisualGenome RNN/LSTM Language Model')
@@ -60,6 +60,7 @@ if args.cuda:
 # Load data
 ###############################################################################
 
+
 with open(args.corpus, 'rb') as f:
     corpus = torch.load(f)
 
@@ -91,8 +92,11 @@ test_data = batchify(test_corpus, eval_batch_size)
 ###############################################################################
 
 ntokens = len(corpus.dictionary)
-model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
-                       args.nlayers, args.dropout, args.tied)
+if osp.exists(args.save):
+    model = torch.load(args.save)
+else:
+    model = model_lstm.RNNModel(args.model, ntokens, args.emsize, args.nhid,
+                                args.nlayers, args.dropout, args.tied)
 if args.cuda:
     model.cuda()
 
