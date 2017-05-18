@@ -92,17 +92,17 @@ class VisualGenomeLoader(data.Dataset):
             self.process_dataset()
 
         if train:
-            train_file = osp.join(self.root, self.top_folder,
+            train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
                 self.regions = torch.load(f)
         elif test:
-            test_file = osp.join(self.root, self.top_folder,
+            test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
                 self.regions = torch.load(f)
         else:
-            val_file = osp.join(self.root, self.top_folder,
+            val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
                 self.regions = torch.load(f)
@@ -113,7 +113,7 @@ class VisualGenomeLoader(data.Dataset):
             self.corpus = torch.load(f)
 
     def __check_exists(self):
-        path = osp.join(self.root, self.top_folder)
+        path = osp.join(self.data_path, self.top_folder)
         return osp.exists(path)
 
     def process_dataset(self):
@@ -174,40 +174,40 @@ class VisualGenomeLoader(data.Dataset):
         test_regions = regions[train_prop + val_train_prop:].tolist()
 
         print("Saving train text corpus...")
-        train_text_path = osp.join(self.root, self.top_folder,
+        train_text_path = osp.join(self.data_path, self.top_folder,
                                    self.train_text_file)
         with open(train_text_path, 'w') as f:
             for region in train_regions:
                 f.write(region.phrase + '\n')
 
         print("Saving validation text corpus...")
-        val_text_path = osp.join(self.root, self.top_folder,
+        val_text_path = osp.join(self.data_path, self.top_folder,
                                  self.val_text_file)
         with open(val_text_path, 'w') as f:
             for region in val_regions:
                 f.write(region.phrase + '\n')
 
         print("Saving test text corpus...")
-        test_text_path = osp.join(self.root, self.top_folder,
+        test_text_path = osp.join(self.data_path, self.top_folder,
                                   self.test_text_file)
         with open(test_text_path, 'w') as f:
             for region in test_regions:
                 f.write(region.phrase + '\n')
 
         print("Saving training regions...")
-        train_file = osp.join(self.root, self.top_folder,
+        train_file = osp.join(self.data_path, self.top_folder,
                               self.region_train_file)
         with open(train_file, 'wb') as f:
             torch.save(train_regions, f)
 
         print("Saving validation regions...")
-        val_file = osp.join(self.root, self.top_folder,
+        val_file = osp.join(self.data_path, self.top_folder,
                             self.region_val_file)
         with open(val_file, 'wb') as f:
             torch.save(val_regions, f)
 
         print("Saving testing regions...")
-        test_file = osp.join(self.root, self.top_folder,
+        test_file = osp.join(self.data_path, self.top_folder,
                              self.region_test_file)
         with open(test_file, 'wb') as f:
             torch.save(test_regions, f)
