@@ -99,10 +99,13 @@ if osp.exists(args.save):
         model_params = torch.load(args.save).state_dict()
         model.load_state_dict(model_params)
 
+# if args.cuda:
+    # model.cuda()
+
+model = nn.DataParallel(model)
 if args.cuda:
     model.cuda()
 
-model = nn.DataParallel(model)
 criterion = nn.CrossEntropyLoss()
 
 ###############################################################################
