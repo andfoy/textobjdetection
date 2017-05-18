@@ -12,7 +12,7 @@ import model
 
 parser = argparse.ArgumentParser(
     description='PyTorch VisualGenome RNN/LSTM Language Model')
-parser.add_argument('--data', type=str, default='./data/penn',
+parser.add_argument('--data', type=str, default='./data/top_100',
                     help='location of the data corpus')
 parser.add_argument('--model', type=str, default='LSTM',
                     help='type of recurrent net '
