@@ -96,10 +96,11 @@ if osp.exists(args.save):
     model = torch.load(args.save)
 else:
     model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
-                                args.nlayers, args.dropout, args.tied)
+                           args.nlayers, args.dropout, args.tied)
 if args.cuda:
     model.cuda()
 
+model = nn.DataParallel(model)
 criterion = nn.CrossEntropyLoss()
 
 ###############################################################################
