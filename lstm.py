@@ -92,11 +92,13 @@ test_data = batchify(test_corpus, eval_batch_size)
 ###############################################################################
 
 ntokens = len(corpus.dictionary)
+model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
+                       args.nlayers, args.dropout, args.tied)
 if osp.exists(args.save):
-    model = torch.load(args.save)
-else:
-    model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
-                           args.nlayers, args.dropout, args.tied)
+    with open(args.save) as f:
+        model_params = torch.load(args.save).state_dict()
+        model.load_state_dict(model_params)
+
 if args.cuda:
     model.cuda()
 
