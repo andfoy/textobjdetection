@@ -163,8 +163,8 @@ class VisualGenomeLoader(data.Dataset):
                 regions += region
 
         print("Splitting region descriptions...")
-        train_prop = np.ceil(len(regions) * 0.6)
-        val_train_prop = np.ceil(len(regions) * 0.15)
+        train_prop = int(np.ceil(len(regions) * 0.6))
+        val_train_prop = int(np.ceil(len(regions) * 0.15))
 
         regions = np.array(regions)
         np.random.shuffle(regions)
