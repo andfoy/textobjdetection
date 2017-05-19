@@ -92,3 +92,4 @@ data/
 
 # Sublime text project settings
 *.sublime-project
+*.sublime-workspace

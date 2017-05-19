@@ -194,7 +194,7 @@ class FasterRCNN(nn.Module):
             self.n_classes = len(classes)
 
         self.rpn = RPN()
-        self.roi_pool = RoIPool(7, 7, 1.0/16)
+        self.roi_pool = RoIPool(7, 7, 1.0 / 16)
         self.fc6 = FC(512 * 7 * 7, 4096)
         self.fc7 = FC(4096, 4096)
         self.score_fc = FC(4096, self.n_classes, relu=False)
