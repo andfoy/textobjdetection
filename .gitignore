@@ -89,3 +89,6 @@ ENV/
 .ropeproject
 
 data/
+
+# Sublime text project settings
+*.sublime-project

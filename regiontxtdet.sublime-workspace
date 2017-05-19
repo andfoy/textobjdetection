@@ -1,0 +1,1663 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mode",
+				"model_state\tstatement"
+			],
+			[
+				"stat",
+				"state_dict\tstatement"
+			],
+			[
+				"load",
+				"load_state_dict"
+			],
+			[
+				"model",
+				"model_params\tstatement"
+			],
+			[
+				"test",
+				"test_corpus\tstatement"
+			],
+			[
+				"val",
+				"val_corpus\tstatement"
+			],
+			[
+				"train",
+				"train_corpus\tstatement"
+			],
+			[
+				"data",
+				"data_path\tstatement"
+			],
+			[
+				"wr",
+				"word2idx\tstatement"
+			],
+			[
+				"d",
+				"dictionary\tstatement"
+			],
+			[
+				"file",
+				"file_path\tparam"
+			],
+			[
+				"region",
+				"region_train_file\tstatement"
+			],
+			[
+				"tra",
+				"train_text_path\tstatement"
+			],
+			[
+				"top",
+				"top_folder\tstatement"
+			],
+			[
+				"img",
+				"img_top_ids\tstatement"
+			],
+			[
+				"regi",
+				"region_descriptions\tstatement"
+			],
+			[
+				"co",
+				"corpus_path\tstatement"
+			],
+			[
+				"da",
+				"data_path\tstatement"
+			],
+			[
+				"sorted",
+				"sorted_objs\tstatement"
+			],
+			[
+				"to",
+				"top_objects\tstatement"
+			],
+			[
+				"sort",
+				"sorted_objs\tstatement"
+			],
+			[
+				"top_",
+				"top_objects\tstatement"
+			],
+			[
+				"obj",
+				"obj_file_path\tstatement"
+			],
+			[
+				"proce",
+				"process_dataset"
+			],
+			[
+				"__",
+				"__check_exists\tfunction"
+			],
+			[
+				"cor",
+				"corpus_filename"
+			],
+			[
+				"visua",
+				"visual_genome_loader\tmodule"
+			],
+			[
+				"reg",
+				"region_descriptions_full\tstatement"
+			],
+			[
+				"p",
+				"phrase"
+			],
+			[
+				"toke",
+				"tokenize"
+			],
+			[
+				"c",
+				"corpus\tstatement"
+			],
+			[
+				"ima",
+				"image_info\tstatement"
+			],
+			[
+				"image",
+				"image_info\tstatement"
+			],
+			[
+				"rg",
+				"region_file\tstatement"
+			],
+			[
+				"imag",
+				"image_data_path\tstatement"
+			],
+			[
+				"word",
+				"word2idx\tstatement"
+			],
+			[
+				"di",
+				"dictionary"
+			],
+			[
+				"add",
+				"add_to_corpus\tfunction"
+			],
+			[
+				"re",
+				"region_descriptions\tstatement"
+			],
+			[
+				"ex",
+				"exists\tfunction"
+			],
+			[
+				"process",
+				"processed_folder"
+			],
+			[
+				"pro",
+				"processed_folder\tstatement"
+			],
+			[
+				"ge",
+				"get_all_region_descriptions\tfunction"
+			],
+			[
+				"gr",
+				"graph_path\tstatement"
+			],
+			[
+				"sa",
+				"save_scene_graphs_by_id\tfunction"
+			],
+			[
+				"test_",
+				"test_loss\tstatement"
+			],
+			[
+				"load_",
+				"load_ext"
+			],
+			[
+				"Pr",
+				"ProgressBar\tclass"
+			],
+			[
+				"te",
+				"test_idx\tstatement"
+			],
+			[
+				"ran",
+				"random_integers\tfunction"
+			],
+			[
+				"ds",
+				"dstack\tfunction"
+			],
+			[
+				"exce",
+				"except"
+			],
+			[
+				"ma",
+				"make_dataset"
+			],
+			[
+				"tes",
+				"test_path\tstatement"
+			],
+			[
+				"con",
+				"conv8\tstatement"
+			],
+			[
+				"state",
+				"state_dict"
+			],
+			[
+				"sta",
+				"state_dict\tstatement"
+			],
+			[
+				"val_",
+				"val_loss\tstatement"
+			],
+			[
+				"bes",
+				"best_val_loss\tstatement"
+			],
+			[
+				"ar",
+				"args\tstatement"
+			],
+			[
+				"Key",
+				"KeyboardInterrupt\tclass"
+			],
+			[
+				"max",
+				"max_pool2d"
+			],
+			[
+				"trai",
+				"train_loader\tstatement"
+			],
+			[
+				"raw",
+				"raw_folder\tstatement"
+			],
+			[
+				"tar",
+				"target_transform\tstatement"
+			],
+			[
+				"class",
+				"class_to_idx"
+			],
+			[
+				"clas",
+				"class_path\tstatement"
+			],
+			[
+				"tex",
+				"texture_labels\tstatement"
+			],
+			[
+				"text",
+				"textures_set\tstatement"
+			],
+			[
+				"io",
+				"iofuncs\tmodule"
+			],
+			[
+				"hi",
+				"hid_state\tparam"
+			],
+			[
+				"bin",
+				"bin_val\tstatement"
+			],
+			[
+				"Fi",
+				"FigureCanvas"
+			],
+			[
+				"WA",
+				"WA_Hover\tinstance"
+			],
+			[
+				"time",
+				"time_interval\tstatement"
+			],
+			[
+				"st",
+				"stdout\tinstance"
+			],
+			[
+				"diff",
+				"diff_path\tparam"
+			],
+			[
+				"dif",
+				"diff_path\tparam"
+			],
+			[
+				"cal",
+				"cal_path\tstatement"
+			],
+			[
+				"pa",
+				"path"
+			],
+			[
+				"obje",
+				"object_curves\tstatement"
+			],
+			[
+				"Q",
+				"QApplication\tclass"
+			],
+			[
+				"path",
+				"path_2\tstatement"
+			],
+			[
+				"prin",
+				"print_function\tstatement"
+			],
+			[
+				"err",
+				"err_msg\tstatement"
+			],
+			[
+				"for",
+				"format\tfunction"
+			],
+			[
+				"pre",
+				"prefix_diff_path\tstatement"
+			],
+			[
+				"id_",
+				"id_objet\tstatement"
+			],
+			[
+				"QV",
+				"QVBoxLayout\tclass"
+			],
+			[
+				"assi",
+				"assistant"
+			],
+			[
+				"assis",
+				"assistants\tstatement"
+			],
+			[
+				"ass",
+				"assistant"
+			],
+			[
+				"fpr",
+				"fprintf\tMatlab method"
+			],
+			[
+				"VAL",
+				"VAL_FILE"
+			],
+			[
+				"VL",
+				"VLFEAT_PATH"
+			],
+			[
+				"MA",
+				"MATCONVNET_PATH"
+			],
+			[
+				"neg",
+				"neg_seq\tstatement"
+			],
+			[
+				"full",
+				"fullfile\tMatlab method"
+			],
+			[
+				"sor",
+				"sorted_idx\tstatement"
+			],
+			[
+				"sco",
+				"scores\tstatement"
+			],
+			[
+				"sore",
+				"scores\tstatement"
+			],
+			[
+				"dete",
+				"detections\tstatement"
+			],
+			[
+				"model_",
+				"model_width\tstatement"
+			],
+			[
+				"HOG",
+				"HOG_SIZE_CELL\tstatement"
+			],
+			[
+				"sc",
+				"scores\tstatement"
+			],
+			[
+				"im",
+				"img_rescaled\tstatement"
+			],
+			[
+				"res",
+				"resize"
+			],
+			[
+				"dir",
+				"dirpath\tforstmt"
+			],
+			[
+				"lam",
+				"lambda_\tstatement"
+			],
+			[
+				"num",
+				"num_neg\tstatement"
+			],
+			[
+				"nu",
+				"num_pos\tstatement"
+			],
+			[
+				"lamb",
+				"lambda_"
+			],
+			[
+				"pos",
+				"pos_labels\tstatement"
+			],
+			[
+				"un",
+				"unrolled_neg\tstatement"
+			],
+			[
+				"mean",
+				"mean_hog\tstatement"
+			],
+			[
+				"w",
+				"width\tstatement"
+			],
+			[
+				"collect_",
+				"collect_uniform_integers\tfunction"
+			],
+			[
+				"min",
+				"min_dim\tstatement"
+			],
+			[
+				"get",
+				"get_mean_cropped_image\tfunction"
+			],
+			[
+				"hog",
+				"hog_features\tfunction"
+			],
+			[
+				"hog_fea",
+				"hog_feat"
+			],
+			[
+				"dim",
+				"dim_xy\tstatement"
+			],
+			[
+				"bbx",
+				"bbx_img_sum\tstatement"
+			],
+			[
+				"read",
+				"readline\tfunction"
+			],
+			[
+				"std",
+				"stdout\tinstance"
+			],
+			[
+				"en",
+				"end_stmt\tstatement"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"LA",
+				"LABELS_VAR\tstatement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "model.py",
+			"settings":
+			{
+				"buffer_size": 2698,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "visual_genome_loader.py",
+			"settings":
+			{
+				"buffer_size": 12856,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\nimport torch\nfrom torchvision import transforms\nfrom visual_genome_loader import VisualGenomeLoader\n\ntrain_loader = torch.utils.data.DataLoader(\n    VisualGenomeLoader('../data/visual_genome',\n                       transform=transforms.Compose([\n                           transforms.ToTensor(),\n                           transforms.Normalize(mean=[0.485, 0.456, 0.406],\n                                                std=[0.229, 0.224, 0.225])\n                       ])),\n    batch_size=64, shuffle=True)\n\nimport torch\nfrom torchvision import transforms\nfrom visual_genome_loader import VisualGenomeLoader\n\nloader = VisualGenomeLoader('../visual_genome',\n                            transform=transforms.Compose([\n                            transforms.ToTensor(),\n                            transforms.Normalize(mean=[0.485, 0.456, 0.406],\n                            std=[0.229, 0.224, 0.225])]))\n",
+			"settings":
+			{
+				"buffer_size": 905,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lstm.py",
+			"settings":
+			{
+				"buffer_size": 8437,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import cv2\nimport numpy as np\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom torch.autograd import Variable\n\n# from utils.timer import Timer\nfrom utils.blob import im_list_to_blob\nfrom fast_rcnn.nms_wrapper import nms\nfrom rpn_msr.proposal_layer import proposal_layer as proposal_layer_py\nfrom rpn_msr.anchor_target_layer import anchor_target_layer as anchor_target_layer_py\nfrom rpn_msr.proposal_target_layer import proposal_target_layer as proposal_target_layer_py\nfrom fast_rcnn.bbox_transform import bbox_transform_inv, clip_boxes\n\nimport network\nfrom network import Conv2d, FC\n# from roi_pooling.modules.roi_pool_py import RoIPool\nfrom roi_pooling.modules.roi_pool import RoIPool\nfrom vgg16 import VGG16\n\n\ndef nms_detections(pred_boxes, scores, nms_thresh, inds=None):\n    dets = np.hstack((pred_boxes,\n                      scores[:, np.newaxis])).astype(np.float32)\n    keep = nms(dets, nms_thresh)\n    if inds is None:\n        return pred_boxes[keep], scores[keep]\n    return pred_boxes[keep], scores[keep], inds[keep]\n\n\nclass RPN(nn.Module):\n    _feat_stride = [16, ]\n    anchor_scales = [8, 16, 32]\n\n    def __init__(self):\n        super(RPN, self).__init__()\n\n        self.features = VGG16(bn=False)\n        self.conv1 = Conv2d(512, 512, 3, same_padding=True)\n        self.score_conv = Conv2d(512, len(self.anchor_scales) * 3 * 2, 1,\n                                 relu=False, same_padding=False)\n        self.bbox_conv = Conv2d(512, len(self.anchor_scales) * 3 * 4, 1,\n                                relu=False, same_padding=False)\n\n        # loss\n        self.cross_entropy = None\n        self.los_box = None\n\n    @property\n    def loss(self):\n        return self.cross_entropy + self.loss_box * 10\n\n    def forward(self, im_data, im_info,\n                gt_boxes=None, gt_ishard=None, dontcare_areas=None):\n        im_data = network.np_to_variable(im_data, is_cuda=True)\n        im_data = im_data.permute(0, 3, 1, 2)\n        features = self.features(im_data)\n\n        rpn_conv1 = self.conv1(features)\n\n        # rpn score\n        rpn_cls_score = self.score_conv(rpn_conv1)\n        rpn_cls_score_reshape = self.reshape_layer(rpn_cls_score, 2)\n        rpn_cls_prob = F.softmax(rpn_cls_score_reshape)\n        rpn_cls_prob_reshape = self.reshape_layer(rpn_cls_prob, len(self.anchor_scales)*3*2)\n\n        # rpn boxes\n        rpn_bbox_pred = self.bbox_conv(rpn_conv1)\n\n        # proposal layer\n        cfg_key = 'TRAIN' if self.training else 'TEST'\n        rois = self.proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info,\n                                   cfg_key, self._feat_stride, self.anchor_scales)\n\n        # generating training labels and build the rpn loss\n        if self.training:\n            assert gt_boxes is not None\n            rpn_data = self.anchor_target_layer(rpn_cls_score, gt_boxes, gt_ishard, dontcare_areas,\n                                                im_info, self._feat_stride, self.anchor_scales)\n            self.cross_entropy, self.loss_box = self.build_loss(rpn_cls_score_reshape, rpn_bbox_pred, rpn_data)\n\n        return features, rois\n\n    def build_loss(self, rpn_cls_score_reshape, rpn_bbox_pred, rpn_data):\n        # classification loss\n        rpn_cls_score = rpn_cls_score_reshape.permute(0, 2, 3, 1).contiguous().view(-1, 2)\n        rpn_label = rpn_data[0].view(-1)\n\n        rpn_keep = Variable(rpn_label.data.ne(-1).nonzero().squeeze()).cuda()\n        rpn_cls_score = torch.index_select(rpn_cls_score, 0, rpn_keep)\n        rpn_label = torch.index_select(rpn_label, 0, rpn_keep)\n\n        fg_cnt = torch.sum(rpn_label.data.ne(0))\n\n        rpn_cross_entropy = F.cross_entropy(rpn_cls_score, rpn_label)\n\n        # box loss\n        rpn_bbox_targets, rpn_bbox_inside_weights, rpn_bbox_outside_weights = rpn_data[1:]\n        rpn_bbox_targets = torch.mul(rpn_bbox_targets, rpn_bbox_inside_weights)\n        rpn_bbox_pred = torch.mul(rpn_bbox_pred, rpn_bbox_inside_weights)\n\n        rpn_loss_box = F.smooth_l1_loss(rpn_bbox_pred, rpn_bbox_targets, size_average=False) / (fg_cnt + 1e-4)\n\n        return rpn_cross_entropy, rpn_loss_box\n\n    @staticmethod\n    def reshape_layer(x, d):\n        input_shape = x.size()\n        # x = x.permute(0, 3, 1, 2)\n        # b c w h\n        x = x.view(\n            input_shape[0],\n            int(d),\n            int(float(input_shape[1] * input_shape[2]) / float(d)),\n            input_shape[3]\n        )\n        # x = x.permute(0, 2, 3, 1)\n        return x\n\n    @staticmethod\n    def proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info, cfg_key, _feat_stride, anchor_scales):\n        rpn_cls_prob_reshape = rpn_cls_prob_reshape.data.cpu().numpy()\n        rpn_bbox_pred = rpn_bbox_pred.data.cpu().numpy()\n        x = proposal_layer_py(rpn_cls_prob_reshape, rpn_bbox_pred, im_info, cfg_key, _feat_stride, anchor_scales)\n        x = network.np_to_variable(x, is_cuda=True)\n        return x.view(-1, 5)\n\n    @staticmethod\n    def anchor_target_layer(rpn_cls_score, gt_boxes, gt_ishard, dontcare_areas, im_info, _feat_stride, anchor_scales):\n        \"\"\"\n        rpn_cls_score: for pytorch (1, Ax2, H, W) bg/fg scores of previous conv layer\n        gt_boxes: (G, 5) vstack of [x1, y1, x2, y2, class]\n        gt_ishard: (G, 1), 1 or 0 indicates difficult or not\n        dontcare_areas: (D, 4), some areas may contains small objs but no labelling. D may be 0\n        im_info: a list of [image_height, image_width, scale_ratios]\n        _feat_stride: the downsampling ratio of feature map to the original input image\n        anchor_scales: the scales to the basic_anchor (basic anchor is [16, 16])\n        ----------\n        Returns\n        ----------\n        rpn_labels : (1, 1, HxA, W), for each anchor, 0 denotes bg, 1 fg, -1 dontcare\n        rpn_bbox_targets: (1, 4xA, H, W), distances of the anchors to the gt_boxes(may contains some transform)\n                        that are the regression objectives\n        rpn_bbox_inside_weights: (1, 4xA, H, W) weights of each boxes, mainly accepts hyper param in cfg\n        rpn_bbox_outside_weights: (1, 4xA, H, W) used to balance the fg/bg,\n        beacuse the numbers of bgs and fgs mays significiantly different\n        \"\"\"\n        rpn_cls_score = rpn_cls_score.data.cpu().numpy()\n        rpn_labels, rpn_bbox_targets, rpn_bbox_inside_weights, rpn_bbox_outside_weights = \\\n            anchor_target_layer_py(rpn_cls_score, gt_boxes, gt_ishard, dontcare_areas, im_info, _feat_stride, anchor_scales)\n\n        rpn_labels = network.np_to_variable(rpn_labels, is_cuda=True, dtype=torch.LongTensor)\n        rpn_bbox_targets = network.np_to_variable(rpn_bbox_targets, is_cuda=True)\n        rpn_bbox_inside_weights = network.np_to_variable(rpn_bbox_inside_weights, is_cuda=True)\n        rpn_bbox_outside_weights = network.np_to_variable(rpn_bbox_outside_weights, is_cuda=True)\n\n        return rpn_labels, rpn_bbox_targets, rpn_bbox_inside_weights, rpn_bbox_outside_weights\n\n    def load_from_npz(self, params):\n        # params = np.load(npz_file)\n        self.features.load_from_npz(params)\n\n        pairs = {'conv1.conv': 'rpn_conv/3x3', 'score_conv.conv': 'rpn_cls_score', 'bbox_conv.conv': 'rpn_bbox_pred'}\n        own_dict = self.state_dict()\n        for k, v in pairs.items():\n            key = '{}.weight'.format(k)\n            param = torch.from_numpy(params['{}/weights:0'.format(v)]).permute(3, 2, 0, 1)\n            own_dict[key].copy_(param)\n\n            key = '{}.bias'.format(k)\n            param = torch.from_numpy(params['{}/biases:0'.format(v)])\n            own_dict[key].copy_(param)\n\n\nclass FasterRCNN(nn.Module):\n    n_classes = 21\n    classes = np.asarray(['__background__',\n                       'aeroplane', 'bicycle', 'bird', 'boat',\n                       'bottle', 'bus', 'car', 'cat', 'chair',\n                       'cow', 'diningtable', 'dog', 'horse',\n                       'motorbike', 'person', 'pottedplant',\n                       'sheep', 'sofa', 'train', 'tvmonitor'])\n    PIXEL_MEANS = np.array([[[102.9801, 115.9465, 122.7717]]])\n    SCALES = (600,)\n    MAX_SIZE = 1000\n\n    def __init__(self, classes=None, debug=False):\n        super(FasterRCNN, self).__init__()\n\n        if classes is not None:\n            self.classes = classes\n            self.n_classes = len(classes)\n\n        self.rpn = RPN()\n        self.roi_pool = RoIPool(7, 7, 1.0/16)\n        self.fc6 = FC(512 * 7 * 7, 4096)\n        self.fc7 = FC(4096, 4096)\n        self.score_fc = FC(4096, self.n_classes, relu=False)\n        self.bbox_fc = FC(4096, self.n_classes * 4, relu=False)\n\n        # loss\n        self.cross_entropy = None\n        self.loss_box = None\n\n        # for log\n        self.debug = debug\n\n    @property\n    def loss(self):\n        # print self.cross_entropy\n        # print self.loss_box\n        # print self.rpn.cross_entropy\n        # print self.rpn.loss_box\n        return self.cross_entropy + self.loss_box * 10\n\n    def forward(self, im_data, im_info, gt_boxes=None, gt_ishard=None, dontcare_areas=None):\n        features, rois = self.rpn(im_data, im_info, gt_boxes, gt_ishard, dontcare_areas)\n\n        if self.training:\n            roi_data = self.proposal_target_layer(rois, gt_boxes, gt_ishard, dontcare_areas, self.n_classes)\n            rois = roi_data[0]\n\n        # roi pool\n        pooled_features = self.roi_pool(features, rois)\n        x = pooled_features.view(pooled_features.size()[0], -1)\n        x = self.fc6(x)\n        x = F.dropout(x, training=self.training)\n        x = self.fc7(x)\n        x = F.dropout(x, training=self.training)\n\n        cls_score = self.score_fc(x)\n        cls_prob = F.softmax(cls_score)\n        bbox_pred = self.bbox_fc(x)\n\n        if self.training:\n            self.cross_entropy, self.loss_box = self.build_loss(cls_score, bbox_pred, roi_data)\n\n        return cls_prob, bbox_pred, rois\n\n    def build_loss(self, cls_score, bbox_pred, roi_data):\n        # classification loss\n        label = roi_data[1].squeeze()\n        fg_cnt = torch.sum(label.data.ne(0))\n        bg_cnt = label.data.numel() - fg_cnt\n\n        # for log\n        if self.debug:\n            maxv, predict = cls_score.data.max(1)\n            self.tp = torch.sum(predict[:fg_cnt].eq(label.data[:fg_cnt])) if fg_cnt > 0 else 0\n            self.tf = torch.sum(predict[fg_cnt:].eq(label.data[fg_cnt:]))\n            self.fg_cnt = fg_cnt\n            self.bg_cnt = bg_cnt\n\n        ce_weights = torch.ones(cls_score.size()[1])\n        ce_weights[0] = float(fg_cnt) / bg_cnt\n        ce_weights = ce_weights.cuda()\n        cross_entropy = F.cross_entropy(cls_score, label, weight=ce_weights)\n\n        # bounding box regression L1 loss\n        bbox_targets, bbox_inside_weights, bbox_outside_weights = roi_data[2:]\n        bbox_targets = torch.mul(bbox_targets, bbox_inside_weights)\n        bbox_pred = torch.mul(bbox_pred, bbox_inside_weights)\n\n        loss_box = F.smooth_l1_loss(bbox_pred, bbox_targets, size_average=False) / (fg_cnt + 1e-4)\n\n        return cross_entropy, loss_box\n\n    @staticmethod\n    def proposal_target_layer(rpn_rois, gt_boxes, gt_ishard, dontcare_areas, num_classes):\n        \"\"\"\n        ----------\n        rpn_rois:  (1 x H x W x A, 5) [0, x1, y1, x2, y2]\n        gt_boxes: (G, 5) [x1 ,y1 ,x2, y2, class] int\n        # gt_ishard: (G, 1) {0 | 1} 1 indicates hard\n        dontcare_areas: (D, 4) [ x1, y1, x2, y2]\n        num_classes\n        ----------\n        Returns\n        ----------\n        rois: (1 x H x W x A, 5) [0, x1, y1, x2, y2]\n        labels: (1 x H x W x A, 1) {0,1,...,_num_classes-1}\n        bbox_targets: (1 x H x W x A, K x4) [dx1, dy1, dx2, dy2]\n        bbox_inside_weights: (1 x H x W x A, Kx4) 0, 1 masks for the computing loss\n        bbox_outside_weights: (1 x H x W x A, Kx4) 0, 1 masks for the computing loss\n        \"\"\"\n        rpn_rois = rpn_rois.data.cpu().numpy()\n        rois, labels, bbox_targets, bbox_inside_weights, bbox_outside_weights = \\\n            proposal_target_layer_py(rpn_rois, gt_boxes, gt_ishard, dontcare_areas, num_classes)\n        # print labels.shape, bbox_targets.shape, bbox_inside_weights.shape\n        rois = network.np_to_variable(rois, is_cuda=True)\n        labels = network.np_to_variable(labels, is_cuda=True, dtype=torch.LongTensor)\n        bbox_targets = network.np_to_variable(bbox_targets, is_cuda=True)\n        bbox_inside_weights = network.np_to_variable(bbox_inside_weights, is_cuda=True)\n        bbox_outside_weights = network.np_to_variable(bbox_outside_weights, is_cuda=True)\n\n        return rois, labels, bbox_targets, bbox_inside_weights, bbox_outside_weights\n\n    def interpret_faster_rcnn(self, cls_prob, bbox_pred, rois, im_info, im_shape, nms=True, clip=True, min_score=0.0):\n        # find class\n        scores, inds = cls_prob.data.max(1)\n        scores, inds = scores.cpu().numpy(), inds.cpu().numpy()\n\n        keep = np.where((inds > 0) & (scores >= min_score))\n        scores, inds = scores[keep], inds[keep]\n\n        # Apply bounding-box regression deltas\n        keep = keep[0]\n        box_deltas = bbox_pred.data.cpu().numpy()[keep]\n        box_deltas = np.asarray([\n            box_deltas[i, (inds[i] * 4): (inds[i] * 4 + 4)] for i in range(len(inds))\n        ], dtype=np.float)\n        boxes = rois.data.cpu().numpy()[keep, 1:5] / im_info[0][2]\n        pred_boxes = bbox_transform_inv(boxes, box_deltas)\n        if clip:\n            pred_boxes = clip_boxes(pred_boxes, im_shape)\n\n        # nms\n        if nms and pred_boxes.shape[0] > 0:\n            pred_boxes, scores, inds = nms_detections(pred_boxes, scores, 0.3, inds=inds)\n\n        return pred_boxes, scores, self.classes[inds]\n\n    def detect(self, image, thr=0.3):\n        im_data, im_scales = self.get_image_blob(image)\n        im_info = np.array(\n            [[im_data.shape[1], im_data.shape[2], im_scales[0]]],\n            dtype=np.float32)\n\n        cls_prob, bbox_pred, rois = self(im_data, im_info)\n        pred_boxes, scores, classes = \\\n            self.interpret_faster_rcnn(cls_prob, bbox_pred, rois, im_info, image.shape, min_score=thr)\n        return pred_boxes, scores, classes\n\n    def get_image_blob_noscale(self, im):\n        im_orig = im.astype(np.float32, copy=True)\n        im_orig -= self.PIXEL_MEANS\n\n        processed_ims = [im]\n        im_scale_factors = [1.0]\n\n        blob = im_list_to_blob(processed_ims)\n\n        return blob, np.array(im_scale_factors)\n\n    def get_image_blob(self, im):\n        \"\"\"Converts an image into a network input.\n        Arguments:\n            im (ndarray): a color image in BGR order\n        Returns:\n            blob (ndarray): a data blob holding an image pyramid\n            im_scale_factors (list): list of image scales (relative to im) used\n                in the image pyramid\n        \"\"\"\n        im_orig = im.astype(np.float32, copy=True)\n        im_orig -= self.PIXEL_MEANS\n\n        im_shape = im_orig.shape\n        im_size_min = np.min(im_shape[0:2])\n        im_size_max = np.max(im_shape[0:2])\n\n        processed_ims = []\n        im_scale_factors = []\n\n        for target_size in self.SCALES:\n            im_scale = float(target_size) / float(im_size_min)\n            # Prevent the biggest axis from being more than MAX_SIZE\n            if np.round(im_scale * im_size_max) > self.MAX_SIZE:\n                im_scale = float(self.MAX_SIZE) / float(im_size_max)\n            im = cv2.resize(im_orig, None, None, fx=im_scale, fy=im_scale,\n                            interpolation=cv2.INTER_LINEAR)\n            im_scale_factors.append(im_scale)\n            processed_ims.append(im)\n\n        # Create a blob to hold the input images\n        blob = im_list_to_blob(processed_ims)\n\n        return blob, np.array(im_scale_factors)\n\n    def load_from_npz(self, params):\n        self.rpn.load_from_npz(params)\n\n        pairs = {'fc6.fc': 'fc6', 'fc7.fc': 'fc7', 'score_fc.fc': 'cls_score', 'bbox_fc.fc': 'bbox_pred'}\n        own_dict = self.state_dict()\n        for k, v in pairs.items():\n            key = '{}.weight'.format(k)\n            param = torch.from_numpy(params['{}/weights:0'.format(v)]).permute(1, 0)\n            own_dict[key].copy_(param)\n\n            key = '{}.bias'.format(k)\n            param = torch.from_numpy(params['{}/biases:0'.format(v)])\n            own_dict[key].copy_(param)\n\n",
+			"file": "faster_rcnn/faster_rcnn.py",
+			"file_size": 16119,
+			"file_write_time": 131396986908823944,
+			"settings":
+			{
+				"buffer_size": 16200,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/andfoy/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 20799,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "faster_rcnn/__init__.py",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".gitignore",
+			"settings":
+			{
+				"buffer_size": 1051,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "ssp",
+		"selected_items":
+		[
+			[
+				"ssp",
+				"Set Syntax: Python"
+			],
+			[
+				"pep",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"ssmatla",
+				"Set Syntax: MATLAB"
+			],
+			[
+				"pep8",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"idente",
+				"JSON Reindent: reindent file or selection"
+			],
+			[
+				"ssjson",
+				"Set Syntax: JSON"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"ssc++",
+				"Set Syntax: C++"
+			],
+			[
+				"set syntax c",
+				"Set Syntax: C"
+			],
+			[
+				"ssc",
+				"Set Syntax: Cython"
+			],
+			[
+				"sscy",
+				"Set Syntax: Cython"
+			],
+			[
+				"sscyth",
+				"Set Syntax: Cython"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"livereload",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"python",
+				"User: Python PEP8 Autoformat"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"ssmark",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"ssplai",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"te",
+				"Toggle Comment"
+			],
+			[
+				"mar",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"ssbash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"ssmar",
+				"Set Syntax: Markdown GFM"
+			],
+			[
+				"ssmarkdown",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"ssma",
+				"Set Syntax: Markdown"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"ma",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"mark",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"",
+				"Build With: Markdown"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"ter",
+				"Terminal: Open"
+			],
+			[
+				"teri",
+				"Terminal: Open"
+			],
+			[
+				"JSON",
+				"JSON Reindent: reindent file or selection"
+			],
+			[
+				"ident",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"t",
+				"Terminal: Open"
+			],
+			[
+				"termin",
+				"Terminal: Open"
+			],
+			[
+				"tr",
+				"Terminal: Open"
+			],
+			[
+				"term",
+				"Terminal: Open in project folder"
+			],
+			[
+				"trailin",
+				"Trailing Spaces: Toggle Trailing Spaces Highlighting"
+			],
+			[
+				"sspython",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/andfoy/Documentos/dev-projects/instanceobjseg",
+		"/home/andfoy/Documentos/dev-projects/instanceobjseg/faster_rcnn"
+	],
+	"file_history":
+	[
+		"/home/andfoy/.config/sublime-text-3/Packages/Anaconda/README.md",
+		"/home/andfoy/Documentos/dev-projects/instanceobjseg/faster_rcnn/vgg16.py",
+		"/home/andfoy/Documentos/dev-projects/instanceobjseg/data.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Intercambio/Makefile",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Vision/Vision17/Lab11-TextonCNN/main.py",
+		"/run/user/1000/gvfs/sftp:host=157.253.192.197,user=ea.margffoy10/home/ea.margffoy10/email_bootcamp_end.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Redes/Laboratorio/Lab_9/switch1",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Redes/Laboratorio/Lab_9/switch2",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Vision/Vision17/Lab9-HogDetection/src/utils.pyx",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Web/review-me/.coverage/index.html",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Web/review-me/server/modules/generate-accounts.js",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/namespacebrowser.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/circle.yml",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/websockets/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/websockets/term_ws.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/logic/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/logic/term_manager.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/.coveragerc",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/.ciocheck",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/static/index.html",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/rest/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/main.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/runtests.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/setup.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/web/main_handler.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/web/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/routes.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/rest/term_rest.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/MANIFEST.in",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/README.rst",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/README.md",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/CHANGELOG.md",
+		"/home/andfoy/Documentos/Spyder/spyder/build/lib/spyder/widgets/onecolumntree.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/data/spam.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/data/spam.cpp",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/icon_manager.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/test_findinfiles_widget.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/data/spam.txt",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/app/mainwindow.py",
+		"/home/andfoy/Documentos/Spyder/spyder/build/lib/spyder/utils/qthelpers.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/helperwidgets.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/site/sitecustomize.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/config/main.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/sourcecode/base.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/workers/updates.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/editor.py",
+		"/home/andfoy/Documentos/Spyder/spyder/build/lib/spyder/utils/site/sitecustomize.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/browser.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/BI/Proyecto/data/RegistroAccidentes.csv",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/BI/Proyecto/data/process.py",
+		"/home/andfoy/process.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/shell.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/external/binaryornot/check.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/encoding.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/sourcecode/codeeditor.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/projects.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/waitingspinner.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/findinfiles.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/findinfiles.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/editor.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Control/Laboratorio/Lab_1/Informe/models/process_on.m",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Control/Laboratorio/Lab_1/Informe/data/P1_2/process.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Control/Laboratorio/Lab_1/Informe/data/P1_3/process.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Control/Laboratorio/Lab_1/Informe/data/process.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/externalshell/monitor.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/projects/explorer.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/introspection/utils.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/test_editor.py",
+		"/home/andfoy/lib/c-algorithms/src/compare-string.h",
+		"/home/andfoy/Documentos/dev-projects/pythonbootcampuniandes.github.io/index.html",
+		"/home/andfoy/Documentos/dev-projects/personal-page/img/Fourier.svg",
+		"/home/andfoy/Documentos/dev-projects/personal-page/img/cv.svg",
+		"/home/andfoy/Documentos/Universidad/2017/VII_Semestre/Redes/Laboratorio/Lab_1/Makefile",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/utils/__init__.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/utils/pexpect.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/utils/winpexpect.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/utils/wexpect.py",
+		"/home/andfoy/Documentos/Spyder/Console/spyder-terminal/spyder_terminal/server/log.out",
+		"/home/andfoy/Documentos/Spyder/Console/xterm.js/demo/app.js",
+		"/home/andfoy/Documentos/Spyder/Console/xterm.js/demo/main.js",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/ipython/spyder_kernel.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/config/user.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/tests/test_iofuncs.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/qthelpers.py",
+		"/home/andfoy/Documentos/Universidad/2017/VII Semestre/Visión/Vision17/Lab1-Linux/readme.html",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/config/utils.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/tests/test_matlab_import.py",
+		"/home/andfoy/.config/sublime-text-3/Packages/Terminal/Terminal.sublime-settings",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/explorer.py",
+		"/home/andfoy/.config/sublime-text-3/Packages/User/Terminal.sublime-settings",
+		"/usr/share/applications/com.gexperts.Terminix.desktop",
+		"/home/andfoy/.config/powerline/colorschemes/default.json",
+		"/home/andfoy/.config/powerline/colorschemes/solarized.json",
+		"/home/andfoy/Documentos/Universidad/2015/IV Semestre/Desarrollo/dev_tests/node_modules/grunt-google-cdn/node_modules/google-cdn/node_modules/cdnjs-cdn-data/external/cdnjs.json",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/findreplace.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/py3compat.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/comboboxes.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/tests/test_ipythonconsole.py",
+		"/home/andfoy/Documentos/dev-projects/art-collection/data/process.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/__init__.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/tests/test_codeeditor.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/ipython/start_kernel.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/client.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/control.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/ipythonconsole.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/tests/test_argvclear.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/shell.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/config/base.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/__init__.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/test/test_client.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/test/__init__.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/tests/__init__.py",
+		"/home/andfoy/Documentos/Spyder/spyder/bootstrap.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/mixins.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/tests/client_test.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/ipythonconsole/tests/__init__py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/shortcuts.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/plugins/explorer.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/fileswitcher.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/widgets/internalshell.py",
+		"/home/andfoy/Imágenes/Chessboard/calibrate.py",
+		"/home/andfoy/Documentos/Universidad/2014/I Semestre/Introducción/Ciclo 2/pong.py",
+		"/home/andfoy/lib/opencv-3.2.0/samples/python/calibrate.py",
+		"/home/andfoy/Imágenes/Webcam/calibrate.py",
+		"/home/andfoy/AISim/aStar.py",
+		"/home/andfoy/Documentos/Spyder/spyder/spyder/utils/help/tutorial.rst"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"self.features",
+			"state_dict",
+			"model_lstm",
+			"'w'",
+			"open",
+			"root",
+			"train",
+			"val",
+			"train",
+			"self.region_descriptions",
+			"roo",
+			"repackage_hidden",
+			"hog",
+			"val_loss",
+			"best_val_loss",
+			"val",
+			"view",
+			"train",
+			"texturesPublic",
+			"MatplotlibWidget",
+			"temps",
+			"listeATraiter",
+			"nbLigne",
+			"dernierTemps",
+			"labelActuel",
+			"doc_label",
+			"id_objet",
+			"liste_temps",
+			"temps",
+			"objet_num",
+			"id_temps",
+			"nom_",
+			"liste_type",
+			"liste_nom",
+			"trouverObjet",
+			"changerObjet",
+			"addObjet",
+			"lecture",
+			"lire",
+			"id_tmp_nom",
+			"objet_it",
+			"objet",
+			"DocumentSortie",
+			"infoObjet",
+			"nbObjets",
+			"getValue",
+			"rechercheID",
+			"id_nom",
+			"temps",
+			"Temps",
+			"temps",
+			"Temps",
+			"temps",
+			"Temps",
+			"temps",
+			"chemin",
+			"CourbesLumiere",
+			"chemin",
+			"donnees",
+			"titre",
+			"chemin",
+			"espace_temps",
+			"espaceTemps",
+			"docLabel",
+			"TAILLE_IMAGE",
+			"it_objet",
+			"coubresLumiere",
+			"Fenetre",
+			"cheminVersCal",
+			"QtWidgets",
+			"Fenetre",
+			"QtGui",
+			"print ",
+			"phow",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"vlfeat",
+			"VLFEAT",
+			"S1(config-if)#",
+			"S1(config)#",
+			"S1(config-if)#",
+			"S1(config-line)",
+			"S1(config)#",
+			"Switch#",
+			"Switch>",
+			"scores",
+			"^[ ]*console.log",
+			"console.log",
+			"addProject",
+			"andfoy",
+			"avgRating",
+			"url_wrapper",
+			"self.tty",
+			"15.4.2",
+			"hog",
+			"load_matlab",
+			"load_func",
+			"iofunctions",
+			"spyder.utils.iofuncs",
+			"from spyder.utils.iofuncs import load",
+			"load(",
+			"load_matlab",
+			"zip_file",
+			"dom",
+			"charWidth",
+			";]:'",
+			"dom",
+			"nbwidget",
+			"dom",
+			"notebook",
+			"')],",
+			"print",
+			"font",
+			"vis_probs",
+			"shortcut"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 5,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "model.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2698,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								396,
+								396
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "visual_genome_loader.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								288,
+								288
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 905,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								511,
+								511
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lstm.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8437,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1334,
+								1334
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "faster_rcnn/faster_rcnn.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								735,
+								735
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/andfoy/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3234,
+								3234
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1512.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "faster_rcnn/__init__.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": ".gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1051,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1051,
+								1051
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.markdown":
+	{
+		"height": 118.0
+	},
+	"output.nodejs":
+	{
+		"height": 118.0
+	},
+	"pinned_build_system": "",
+	"project": "regiontxtdet.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"brow",
+				"spyder/widgets/browser.py"
+			],
+			[
+				"proyecto",
+				"imports/ui/proyecto/proyecto.jsx"
+			],
+			[
+				"termina",
+				"spyder_terminal/terminalplugin.py"
+			],
+			[
+				"user",
+				"spyder/config/user.py"
+			],
+			[
+				"main",
+				"spyder/app/mainwindow.py"
+			],
+			[
+				"icon",
+				"spyder/utils/icon_manager.py"
+			],
+			[
+				"findi",
+				"spyder/widgets/findinfiles.py"
+			],
+			[
+				"site",
+				"spyder/utils/site/sitecustomize.py"
+			],
+			[
+				"base",
+				"spyder/widgets/sourcecode/base.py"
+			],
+			[
+				"editor.",
+				"spyder/plugins/editor.py"
+			],
+			[
+				"update",
+				"spyder/workers/updates.py"
+			],
+			[
+				"shell",
+				"spyder/widgets/ipythonconsole/shell.py"
+			],
+			[
+				"editor",
+				"spyder/widgets/editor.py"
+			],
+			[
+				"edit",
+				"spyder/plugins/editor.py"
+			],
+			[
+				"main.py",
+				"spyder/config/main.py"
+			],
+			[
+				"pro",
+				"spyder/plugins/projects.py"
+			],
+			[
+				"utils",
+				"spyder/utils/introspection/utils.py"
+			],
+			[
+				"findinfiles",
+				"spyder/widgets/findinfiles.py"
+			],
+			[
+				"finde",
+				"spyder/plugins/findinfiles.py"
+			],
+			[
+				"ma",
+				"Makefile"
+			],
+			[
+				"input",
+				"src/unix-adapter/InputHandler.cc"
+			],
+			[
+				"name",
+				"spyder/widgets/ipythonconsole/namespacebrowser.py"
+			],
+			[
+				"main.c",
+				"css/main.css"
+			],
+			[
+				"winp",
+				"spyder_terminal/server/utils/winpexpect.py"
+			],
+			[
+				"ipython",
+				"spyder/plugins/ipythonconsole.py"
+			],
+			[
+				"finre",
+				"spyder/widgets/findreplace.py"
+			],
+			[
+				"findin",
+				"spyder/widgets/findinfiles.py"
+			],
+			[
+				"finder",
+				"spyder/widgets/findreplace.py"
+			],
+			[
+				"boo",
+				"bootstrap.py"
+			],
+			[
+				"start",
+				"spyder/utils/ipython/start_kernel.py"
+			],
+			[
+				"edi",
+				"spyder/widgets/editor.py"
+			],
+			[
+				"short",
+				"spyder/plugins/shortcuts.py"
+			],
+			[
+				"projec",
+				"spyder/plugins/projects.py"
+			],
+			[
+				"explo",
+				"spyder/widgets/explorer.py"
+			],
+			[
+				"exp",
+				"spyder/plugins/explorer.py"
+			],
+			[
+				"file",
+				"spyder/widgets/fileswitcher.py"
+			],
+			[
+				"cal",
+				"calibrate.py"
+			],
+			[
+				"ipyth",
+				"spyder/plugins/ipythonconsole.py"
+			],
+			[
+				"shell.py",
+				"spyder/widgets/ipythonconsole/shell.py"
+			],
+			[
+				"",
+				"spyder/utils/stringmatching.py"
+			],
+			[
+				"start_kernel.py",
+				"spyder/utils/ipython/start_kernel.py"
+			],
+			[
+				"ipy",
+				"spyder/plugins/ipythonconsole.py"
+			],
+			[
+				"ed",
+				"spyder/widgets/editor.py"
+			],
+			[
+				"config",
+				"spyder/widgets/projects/config.py"
+			],
+			[
+				"conf",
+				"spyder/utils/help/conf.py"
+			],
+			[
+				"sh",
+				"spyder/plugins/shortcuts.py"
+			],
+			[
+				"codee",
+				"spyder/widgets/sourcecode/codeeditor.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 272.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
