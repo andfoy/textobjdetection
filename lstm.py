@@ -103,7 +103,7 @@ if osp.exists(args.save):
     # model.cuda()
 
 
-model = nn.DataParallel(model)
+# model = nn.DataParallel(model)
 if args.cuda:
     model.cuda()
 
@@ -135,7 +135,7 @@ def evaluate(data_source):
     model.eval()
     total_loss = 0
     ntokens = len(corpus.dictionary)
-    hidden = model.module.init_hidden(eval_batch_size)
+    hidden = model.init_hidden(eval_batch_size)
     for i in range(0, data_source.size(0) - 1, args.bptt):
         data, targets = get_batch(data_source, i, evaluation=True)
         output, hidden = model(data, hidden)
@@ -151,7 +151,7 @@ def train():
     total_loss = 0
     start_time = time.time()
     ntokens = len(corpus.dictionary)
-    hidden = model.module.init_hidden(args.batch_size)
+    hidden = model.init_hidden(args.batch_size)
     for batch, i in enumerate(range(0, train_data.size(0) - 1, args.bptt)):
         data, targets = get_batch(train_data, i)
         """
@@ -207,7 +207,7 @@ try:
         # Save the model if the validation loss is the best we've seen so far.
         if not best_val_loss or val_loss < best_val_loss:
             with open(args.save, 'wb') as f:
-                torch.save(model.module.state_dict(), f)
+                torch.save(model.state_dict(), f)
             best_val_loss = val_loss
         else:
             """
@@ -222,7 +222,7 @@ except KeyboardInterrupt:
 # Load the best saved model.
 with open(args.save, 'rb') as f:
     model_state = torch.load(f)
-    model.module.load_state_dict(model_state)
+    model.load_state_dict(model_state)
 
 # Run on test data.
 test_loss = evaluate(test_data)
