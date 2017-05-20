@@ -97,7 +97,9 @@ model = model.RNNModel(args.model, ntokens, args.emsize, args.nhid,
 if osp.exists(args.save):
     with open(args.save) as f:
         model_state = torch.load(args.save)
-        model.load_state_dict(model_state)
+        state = model.state_dict()
+        state.update(model_state)
+        model.load_state_dict(state)
 
 # if args.cuda:
     # model.cuda()

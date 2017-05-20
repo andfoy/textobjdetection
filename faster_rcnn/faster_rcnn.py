@@ -64,15 +64,18 @@ class RPN(nn.Module):
         rpn_cls_score = self.score_conv(rpn_conv1)
         rpn_cls_score_reshape = self.reshape_layer(rpn_cls_score, 2)
         rpn_cls_prob = F.softmax(rpn_cls_score_reshape)
-        rpn_cls_prob_reshape = self.reshape_layer(rpn_cls_prob, len(self.anchor_scales)*3*2)
+        reshape_dim = len(self.anchor_scales) * 3 * 2
+        rpn_cls_prob_reshape = self.reshape_layer(rpn_cls_prob,
+                                                  reshape_dim)
 
         # rpn boxes
         rpn_bbox_pred = self.bbox_conv(rpn_conv1)
 
         # proposal layer
         cfg_key = 'TRAIN' if self.training else 'TEST'
-        rois = self.proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info,
-                                   cfg_key, self._feat_stride, self.anchor_scales)
+        rois = self.proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred,
+                                   im_info, cfg_key, self._feat_stride,
+                                   self.anchor_scales)
 
         # generating training labels and build the rpn loss
         if self.training:
