@@ -26,17 +26,19 @@ transformations to a set of regular boxes (called "anchors").
 """
 
 
-def proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info, cfg_key, _feat_stride=[16, ],
+def proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info,
+                   cfg_key, _feat_stride=[16, ],
                    anchor_scales=[8, 16, 32]):
     """
     Parameters
     ----------
     rpn_cls_prob_reshape: (1 , H , W , Ax2) outputs of RPN, prob of bg or fg
-                         NOTICE: the old version is ordered by (1, H, W, 2, A) !!!!
+        NOTICE: the old version is ordered by (1, H, W, 2, A) !!!!
     rpn_bbox_pred: (1 , H , W , Ax4), rgs boxes output of RPN
     im_info: a list of [image_height, image_width, scale_ratios]
     cfg_key: 'TRAIN' or 'TEST'
-    _feat_stride: the downsampling ratio of feature map to the original input image
+    _feat_stride:
+        the downsampling ratio of feature map to the original input image
     anchor_scales: the scales to the basic_anchor (basic anchor is [16, 16])
     ----------
     Returns
@@ -60,11 +62,7 @@ def proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info, cfg_key, _feat_
     """
     _anchors = generate_anchors(scales=np.array(anchor_scales))
     _num_anchors = _anchors.shape[0]
-    # rpn_cls_prob_reshape = np.transpose(rpn_cls_prob_reshape,[0,3,1,2]) #-> (1 , 2xA, H , W)
-    # rpn_bbox_pred = np.transpose(rpn_bbox_pred,[0,3,1,2])              # -> (1 , Ax4, H , W)
 
-    # rpn_cls_prob_reshape = np.transpose(np.reshape(rpn_cls_prob_reshape,[1,rpn_cls_prob_reshape.shape[0],rpn_cls_prob_reshape.shape[1],rpn_cls_prob_reshape.shape[2]]),[0,3,2,1])
-    # rpn_bbox_pred = np.transpose(rpn_bbox_pred,[0,3,2,1])
     im_info = im_info[0]
 
     assert rpn_cls_prob_reshape.shape[0] == 1, \
@@ -107,8 +105,8 @@ def proposal_layer(rpn_cls_prob_reshape, rpn_bbox_pred, im_info, cfg_key, _feat_
     # reshape to (K*A, 4) shifted anchors
     A = _num_anchors
     K = shifts.shape[0]
-    anchors = _anchors.reshape((1, A, 4)) + \
-              shifts.reshape((1, K, 4)).transpose((1, 0, 2))
+    anchors = (_anchors.reshape((1, A, 4)) +
+               shifts.reshape((1, K, 4)).transpose((1, 0, 2)))
     anchors = anchors.reshape((K * A, 4))
 
     # Transpose and reshape predicted bbox transformations to get them
