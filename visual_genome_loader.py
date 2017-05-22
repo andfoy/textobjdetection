@@ -121,7 +121,7 @@ class VisualGenomeLoader(data.Dataset):
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
-        self.regions_objects, self.obj_idx = self.load_region_objects()
+        # self.regions_objects, self.obj_idx = self.load_region_objects()
 
     def load_region_objects(self):
         region_graph_file = osp.join(self.root, 'region_graphs.json')
