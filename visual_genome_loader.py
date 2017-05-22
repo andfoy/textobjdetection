@@ -113,6 +113,25 @@ class VisualGenomeLoader(data.Dataset):
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
+    def load_region_objects(self):
+        region_graph_file = osp.join(self.root, 'region_graphs.json')
+        with open(region_graph_file, 'r') as f:
+            reg_graph = json.load(f)
+        img_ids = {x['image_id']: {y['region_id']: set([z['entity_name']
+                                                        for z in y['synsets']] +
+                                                       [z['name']
+                                                        for z in y['objects']])
+                                   for y in x['regions']}
+                   for x in reg_graph}
+
+    def __group_regions_by_id(self, regions):
+        regions_img = {}
+        for region in regions:
+            if region.image.id not in regions_img:
+                regions_img[region.image.id] = []
+            regions_img[region.image.id].append(region)
+        return regions_img
+
     def __check_exists(self):
         path = osp.join(self.data_path, self.top_folder)
         return osp.exists(path)
