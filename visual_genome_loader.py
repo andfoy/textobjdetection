@@ -66,6 +66,14 @@ class Corpus(object):
         return torch.LongTensor(tokens)
 
 
+class AnnotationTransform(object):
+    def __call__(self, regions, obj_label):
+        phrases = []
+        bboxes = []
+        for region in regions:
+            pass
+
+
 class VisualGenomeLoader(data.Dataset):
     data_path = 'data'
     processed_folder = 'processed'
@@ -96,33 +104,45 @@ class VisualGenomeLoader(data.Dataset):
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         else:
             val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
+        self.regions_objects, self.obj_idx = self.load_region_objects()
+
     def load_region_objects(self):
         region_graph_file = osp.join(self.root, 'region_graphs.json')
         with open(region_graph_file, 'r') as f:
             reg_graph = json.load(f)
-        img_ids = {x['image_id']: {y['region_id']: set([z['entity_name']
-                                                        for z in y['synsets']] +
-                                                       [z['name']
-                                                        for z in y['objects']])
-                                   for y in x['regions']}
-                   for x in reg_graph}
+
+        img_id = {x['image_id']: {y['region_id']: set([z['entity_name']
+                                                       for z in y['synsets']] +
+                                                      [z['name']
+                                                       for z in y['objects']])
+                                  for y in x['regions']}
+                  for x in reg_graph}
+
+        obj_idx = {}
+        for img in img_id:
+            for region in img_id[img]:
+                obj = frozenset(img_id[img][region])
+                if obj not in obj_idx:
+                    obj_idx[obj] = len(obj_idx)
+
+        return img_id, obj_idx
 
     def __group_regions_by_id(self, regions):
         regions_img = {}
