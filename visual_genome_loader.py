@@ -74,7 +74,7 @@ class AnnotationTransform(object):
         for region in regions:
             reg_obj = frozenset([x.lower()
                                  for x in region_objects[region.id]])
-            cat = objects_idx[reg_obj]
+            cat = objects_idx[region.image.id][reg_obj]
             bbx = [region.x / width, region.y / height,
                    (region.x + region.width) / width,
                    (region.y + region.height) / width,
