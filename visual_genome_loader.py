@@ -153,7 +153,7 @@ class VisualGenomeLoader(data.Dataset):
             if region.image.id not in regions_img:
                 regions_img[region.image.id] = []
             regions_img[region.image.id].append(region)
-        return regions_img
+        return list(regions_img.values())
 
     def __check_exists(self):
         path = osp.join(self.data_path, self.top_folder)
