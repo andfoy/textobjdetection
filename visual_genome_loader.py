@@ -104,24 +104,24 @@ class VisualGenomeLoader(data.Dataset):
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         else:
             val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
-        # self.regions_objects, self.obj_idx = self.load_region_objects()
+        self.regions_objects, self.obj_idx = self.load_region_objects()
 
     def load_region_objects(self):
         region_graph_file = osp.join(self.root, 'region_graphs.json')
