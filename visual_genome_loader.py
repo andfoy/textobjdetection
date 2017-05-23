@@ -124,6 +124,7 @@ class VisualGenomeLoader(data.Dataset):
         self.regions_objects, self.obj_idx = self.load_region_objects()
 
     def load_region_objects(self):
+        print("Loading region objects...")
         region_graph_file = osp.join(self.root, 'region_graphs.json')
         with open(region_graph_file, 'r') as f:
             reg_graph = json.load(f)
@@ -146,6 +147,7 @@ class VisualGenomeLoader(data.Dataset):
         return img_id, obj_idx
 
     def __group_regions_by_id(self, regions):
+        print("Transforming data....")
         regions_img = {}
         for region in regions:
             if region.image.id not in regions_img:
