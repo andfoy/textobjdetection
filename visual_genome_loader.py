@@ -140,7 +140,7 @@ class VisualGenomeLoader(data.Dataset):
         bar = progressbar.ProgressBar()
         for img in bar(img_id):
             for region in img_id[img]:
-                obj = frozenset(img_id[img][region])
+                obj = frozenset([x.lower() for x in img_id[img][region]])
                 if obj not in obj_idx:
                     obj_idx[obj] = len(obj_idx)
 
