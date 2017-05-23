@@ -67,11 +67,21 @@ class Corpus(object):
 
 
 class AnnotationTransform(object):
-    def __call__(self, regions, obj_label):
+    def __call__(self, regions, corpus, region_objects,
+                 objects_idx, height, width):
         phrases = []
         bboxes = []
         for region in regions:
-            pass
+            reg_obj = frozenset([x.lower()
+                                 for x in region_objects[region.id]])
+            cat = objects_idx[reg_obj]
+            bbx = [region.x / width, region.y / height,
+                   (region.x + region.width) / width,
+                   (region.y + region.height) / width,
+                   cat]
+            bboxes.append(bbx)
+            phrases.append(corpus.tokenize(region.phrase))
+        return bboxes, phrases
 
 
 class VisualGenomeLoader(data.Dataset):
@@ -85,10 +95,11 @@ class VisualGenomeLoader(data.Dataset):
     region_val_file = 'region_val.pt'
     region_test_file = 'region_test.pt'
 
-    def __init__(self, root, transform=None, train=True, test=False,
-                 top=100):
+    def __init__(self, root, transform=None, target_transform=None,
+                 train=True, test=False, top=100):
         self.root = root
         self.transform = transform
+        self.target_transform = target_transform
         self.top_objects = top
         self.top_folder = 'top_{0}'.format(top)
 
@@ -292,8 +303,8 @@ class VisualGenomeLoader(data.Dataset):
         return len(self.regions)
 
     def __getitem__(self, idx):
-        region = self.regions[idx]
-        image_info = region.image
+        regions = self.regions[idx]
+        image_info = regions[0].image
 
         # if image_info.id not in self.cache:
         image_path = image_info.url.split('/')[-2:]
@@ -304,10 +315,17 @@ class VisualGenomeLoader(data.Dataset):
         # img = self.cache[image_info.id]
         img = self.transform(img)
 
-        phrase = self.corpus.tokenize(region.phrase)
-        target = torch.LongTensor([region.x, region.y,
-                                   region.width, region.height])
-        return img, phrase, target
+        bboxes, phrases = self.target_transform(regions,
+                                                self.corpus,
+                                                self.regions_objects,
+                                                self.obj_idx,
+                                                image_info.height,
+                                                image_info.width)
+        # phrase = self.corpus.tokenize(region.phrase)
+        # target = torch.LongTensor([region.x, region.y,
+        # region.width, region.height])
+        # return img, phrase, target
+        return img, bboxes, phrases
 
 
 class VisualGenomeLoaderFull(data.Dataset):

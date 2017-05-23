@@ -75,6 +75,7 @@ def weights_init(m):
         xavier(m.weight.data)
         m.bias.data.zero_()
 
+
 print('Initializing weights...')
 # initialize newly added layers' weights with xavier method
 net.extras.apply(weights_init)
