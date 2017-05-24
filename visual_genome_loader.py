@@ -94,6 +94,7 @@ class AnnotationTransform(object):
                  objects_idx, height, width):
         # phrases = []
         bboxes = []
+        phrase = None
         # for region in regions:
         try:
             reg_obj = region_objects[region.image.id][region.id]
@@ -108,8 +109,8 @@ class AnnotationTransform(object):
                    (region.y + region.height) / width,
                    cat]
             bboxes.append(bbx)
-            phrases = corpus.tokenize(region.phrase)
-        return bboxes, phrases
+            phrase = corpus.tokenize(region.phrase)
+        return bboxes, phrase
 
 
 class VisualGenomeLoader(data.Dataset):
@@ -139,11 +140,14 @@ class VisualGenomeLoader(data.Dataset):
         if not self.__check_exists():
             self.process_dataset()
 
+        region_objects, self.obj_idx = self.load_region_objects()
+
         if train:
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__filter_regions_by_class(torch.load(f),
+                                                              region_objects)
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
@@ -160,7 +164,7 @@ class VisualGenomeLoader(data.Dataset):
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
-        self.regions_objects, self.obj_idx = self.load_region_objects()
+        del region_objects
 
     def load_region_objects(self):
         print("Loading region objects...")
@@ -199,6 +203,21 @@ class VisualGenomeLoader(data.Dataset):
                 regions_img[region.image.id] = []
             regions_img[region.image.id].append(region)
         return list(regions_img.values())
+
+    def __filter_regions_by_class(self, regions, region_objects):
+        print("Filtering regions...")
+        act_regions = []
+        bar = progressbar.ProgressBar()
+        for region in bar(regions):
+            try:
+                reg_obj = region_objects[region.id]
+                reg_obj = frozenset([x.lower()
+                                     for x in reg_obj])
+            except KeyError:
+                reg_obj = frozenset({})
+
+            if reg_obj in self.obj_idx:
+                act_regions.append(region)
 
     def __check_exists(self):
         path = osp.join(self.data_path, self.top_folder)
