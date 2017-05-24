@@ -160,7 +160,7 @@ class VisualGenomeLoader(data.Dataset):
 
         top_objs = sorted(obj_count, key=lambda k: obj_count[k],
                           reverse=True)[:1500]
-        obj_idx = {top_objs[i] for i in range(0, len(top_objs))}
+        obj_idx = {top_objs[i]: i for i in range(0, len(top_objs))}
         # del obj_count
         return img_id, obj_idx
 
