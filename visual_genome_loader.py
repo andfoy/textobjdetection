@@ -66,7 +66,7 @@ class Corpus(object):
         return torch.LongTensor(tokens)
 
 
-class AnnotationTransform(object):
+class AnnotationTransformComplete(object):
     def __call__(self, regions, corpus, region_objects,
                  objects_idx, height, width):
         phrases = []
@@ -86,6 +86,29 @@ class AnnotationTransform(object):
                        cat]
                 bboxes.append(bbx)
                 phrases.append(corpus.tokenize(region.phrase))
+        return bboxes, phrases
+
+
+class AnnotationTransform(object):
+    def __call__(self, region, corpus, region_objects,
+                 objects_idx, height, width):
+        # phrases = []
+        bboxes = []
+        # for region in regions:
+        try:
+            reg_obj = region_objects[region.image.id][region.id]
+            reg_obj = frozenset([x.lower()
+                                 for x in reg_obj])
+        except KeyError:
+            reg_obj = frozenset({})
+        if reg_obj in objects_idx:
+            cat = objects_idx[reg_obj]
+            bbx = [region.x / width, region.y / height,
+                   (region.x + region.width) / width,
+                   (region.y + region.height) / width,
+                   cat]
+            bboxes.append(bbx)
+            phrases = corpus.tokenize(region.phrase)
         return bboxes, phrases
 
 
@@ -120,7 +143,7 @@ class VisualGenomeLoader(data.Dataset):
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
@@ -314,8 +337,10 @@ class VisualGenomeLoader(data.Dataset):
         return len(self.regions)
 
     def __getitem__(self, idx):
-        regions = self.regions[idx]
-        image_info = regions[0].image
+        region = self.regions[idx]
+        # regions = self.regions[idx]
+        # image_info = regions[0].image
+        image_info = region.image
 
         # if image_info.id not in self.cache:
         image_path = image_info.url.split('/')[-2:]
@@ -326,7 +351,7 @@ class VisualGenomeLoader(data.Dataset):
         # img = self.cache[image_info.id]
         img = self.transform(img)
 
-        bboxes, phrases = self.target_transform(regions,
+        bboxes, phrases = self.target_transform(region,
                                                 self.corpus,
                                                 self.regions_objects,
                                                 self.obj_idx,
