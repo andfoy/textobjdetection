@@ -210,7 +210,7 @@ class VisualGenomeLoader(data.Dataset):
         bar = progressbar.ProgressBar()
         for region in bar(regions):
             try:
-                reg_obj = region_objects[region.id]
+                reg_obj = region_objects[region.image.id][region.id]
                 reg_obj = frozenset([x.lower()
                                      for x in reg_obj])
             except KeyError:
