@@ -75,13 +75,14 @@ class AnnotationTransform(object):
             reg_obj = region_objects[region.image.id][region.id]
             reg_obj = frozenset([x.lower()
                                  for x in reg_obj])
-            cat = objects_idx[reg_obj]
-            bbx = [region.x / width, region.y / height,
-                   (region.x + region.width) / width,
-                   (region.y + region.height) / width,
-                   cat]
-            bboxes.append(bbx)
-            phrases.append(corpus.tokenize(region.phrase))
+            if reg_obj in objects_idx:
+                cat = objects_idx[reg_obj]
+                bbx = [region.x / width, region.y / height,
+                       (region.x + region.width) / width,
+                       (region.y + region.height) / width,
+                       cat]
+                bboxes.append(bbx)
+                phrases.append(corpus.tokenize(region.phrase))
         return bboxes, phrases
 
 
