@@ -133,8 +133,7 @@ class VisualGenomeLoader(data.Dataset):
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
-        (self.regions_objects,
-         self.obj_idx, self.idx_c) = self.load_region_objects()
+        self.regions_objects, self.obj_idx = self.load_region_objects()
 
     def load_region_objects(self):
         print("Loading region objects...")
@@ -149,17 +148,21 @@ class VisualGenomeLoader(data.Dataset):
                                   for y in x['regions']}
                   for x in reg_graph}
 
-        obj_idx = {}
-        idx_count = {}
+        # obj_idx = {}
+        obj_count = {}
         bar = progressbar.ProgressBar()
         for img in bar(img_id):
             for region in img_id[img]:
                 obj = frozenset([x.lower() for x in img_id[img][region]])
-                if obj not in obj_idx:
-                    obj_idx[obj] = len(obj_idx)
-                    idx_count[obj_idx[obj]] = {'sum': 0, 'obj': obj}
-                idx_count[obj_idx[obj]]['sum'] += 1
-        return img_id, obj_idx, idx_count
+                if obj not in obj_count:
+                    obj_count[obj] = 0
+                obj_count[obj] += 1
+
+        top_objs = sorted(obj_count, key=lambda k: obj_count[k],
+                          reverse=True)[:1500]
+        obj_idx = {top_objs[i] for i in range(0, len(top_objs))}
+        # del obj_count
+        return img_id, obj_idx
 
     def __group_regions_by_id(self, regions):
         print("Transforming data....")
