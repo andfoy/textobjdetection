@@ -89,6 +89,15 @@ class AnnotationTransformComplete(object):
         return bboxes, phrases
 
 
+class ResizeTransform(object):
+    def __init__(self, size, interpolation=Image.BILINEAR):
+        self.size = size
+        self.interpolation = interpolation
+
+    def __call__(self, img):
+        return img.resize(self.size, self.interpolation)
+
+
 class AnnotationTransform(object):
     def __call__(self, region, corpus, region_objects,
                  objects_idx, height, width):
