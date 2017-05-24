@@ -157,8 +157,8 @@ class VisualGenomeLoader(data.Dataset):
                 obj = frozenset([x.lower() for x in img_id[img][region]])
                 if obj not in obj_idx:
                     obj_idx[obj] = len(obj_idx)
-                    idx_count[obj_idx[obj]] = 0
-                idx_count[obj_idx[obj]] += 1
+                    idx_count[obj_idx[obj]] = {'sum': 0, 'obj': obj}
+                idx_count[obj_idx[obj]]['sum'] += 1
         return img_id, obj_idx, idx_count
 
     def __group_regions_by_id(self, regions):
