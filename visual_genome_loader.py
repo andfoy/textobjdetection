@@ -140,14 +140,13 @@ class VisualGenomeLoader(data.Dataset):
         if not self.__check_exists():
             self.process_dataset()
 
-        region_objects, self.obj_idx = self.load_region_objects()
+        self.region_objects, self.obj_idx = self.load_region_objects()
 
         if train:
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = self.__filter_regions_by_class(torch.load(f),
-                                                              region_objects)
+                self.regions = self.__filter_regions_by_class(torch.load(f))
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
@@ -164,7 +163,7 @@ class VisualGenomeLoader(data.Dataset):
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
-        del region_objects
+        # del region_objects
 
     def load_region_objects(self):
         print("Loading region objects...")
@@ -204,13 +203,13 @@ class VisualGenomeLoader(data.Dataset):
             regions_img[region.image.id].append(region)
         return list(regions_img.values())
 
-    def __filter_regions_by_class(self, regions, region_objects):
+    def __filter_regions_by_class(self, regions):
         print("Filtering regions...")
         act_regions = []
         bar = progressbar.ProgressBar()
         for region in bar(regions):
             try:
-                reg_obj = region_objects[region.image.id][region.id]
+                reg_obj = self.region_objects[region.image.id][region.id]
                 reg_obj = frozenset([x.lower()
                                      for x in reg_obj])
             except KeyError:
