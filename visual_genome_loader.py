@@ -218,6 +218,7 @@ class VisualGenomeLoader(data.Dataset):
 
             if reg_obj in self.obj_idx:
                 act_regions.append(region)
+        return act_regions
 
     def __check_exists(self):
         path = osp.join(self.data_path, self.top_folder)
