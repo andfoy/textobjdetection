@@ -72,9 +72,12 @@ class AnnotationTransform(object):
         phrases = []
         bboxes = []
         for region in regions:
-            reg_obj = region_objects[region.image.id][region.id]
-            reg_obj = frozenset([x.lower()
-                                 for x in reg_obj])
+            try:
+                reg_obj = region_objects[region.image.id][region.id]
+                reg_obj = frozenset([x.lower()
+                                     for x in reg_obj])
+            except KeyError:
+                reg_obj = frozenset({})
             if reg_obj in objects_idx:
                 cat = objects_idx[reg_obj]
                 bbx = [region.x / width, region.y / height,
