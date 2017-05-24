@@ -372,7 +372,7 @@ class VisualGenomeLoader(data.Dataset):
 
         bboxes, phrases = self.target_transform(region,
                                                 self.corpus,
-                                                self.regions_objects,
+                                                self.region_objects,
                                                 self.obj_idx,
                                                 image_info.height,
                                                 image_info.width)
