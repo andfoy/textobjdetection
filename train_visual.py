@@ -85,14 +85,14 @@ ssd_dim = 300
 batch_size = args.batch_size
 
 print('Loading train data...')
-train = VisualGenomeLoader(args.data,
-                           transform=transforms.Compose([
-                               ResizeTransform((300, 300)),
-                               transforms.ToTensor(),
-                               transforms.Normalize(
-                                   mean=[0.485, 0.456, 0.406],
-                                   std=[0.229, 0.224, 0.225])]),
-                           target_transform=AnnotationTransform())
+trainset = VisualGenomeLoader(args.data,
+                              transform=transforms.Compose([
+                                  ResizeTransform((300, 300)),
+                                  transforms.ToTensor(),
+                                  transforms.Normalize(
+                                      mean=[0.485, 0.456, 0.406],
+                                      std=[0.229, 0.224, 0.225])]),
+                              target_transform=AnnotationTransform())
 
 print('Loading validation data...')
 validation = VisualGenomeLoader(args.data,
@@ -127,7 +127,7 @@ if args.cuda:
 net.load_state_dict(state_dict)
 
 print('Loading RNN model...')
-ntokens = len(train.corpus.dictionary)
+ntokens = len(trainset.corpus.dictionary)
 lang_model = RNNModel(args.rnn_model, ntokens, args.emsize, args.nhid,
                       args.nlayers, args.dropout, args.tied)
 
@@ -151,8 +151,8 @@ def weights_init(m):
         m.bias.data.zero_()
 
 
-train = DataLoader(train, shuffle=True, collate_fn=lambda x:
-                   detection_collate(x, lang_model))
+trainset = DataLoader(trainset, shuffle=True, collate_fn=lambda x:
+                      detection_collate(x, lang_model))
 
 print('Initializing weights...')
 # initialize newly added layers' weights with xavier method
