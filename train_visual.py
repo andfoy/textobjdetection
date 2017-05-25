@@ -117,7 +117,9 @@ state_dict = net.state_dict()
 for layer in vgg:
     if layer.startswith('features'):
         _, layer_name = layer.split('features.')
-        state_dict[layer_name] = vgg[layer]
+        state_dict['vgg.' + layer_name] = vgg[layer]
+
+# net.load_state_dict(state_dict)
 
 if args.cuda:
     net.cuda()
