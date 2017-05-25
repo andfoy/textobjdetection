@@ -415,7 +415,7 @@ class VisualGenomeLoader(data.Dataset):
         # target = torch.LongTensor([region.x, region.y,
         # region.width, region.height])
         # return img, phrase, target
-        return [img, bboxes, phrases]
+        return img, bboxes, phrases
 
 
 class VisualGenomeLoaderFull(data.Dataset):
