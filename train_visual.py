@@ -11,8 +11,8 @@ import torch.nn.init as init
 from torch.autograd import Variable
 import torch.backends.cudnn as cudnn
 
+from ssd import v2
 from ssd.ssd import build_ssd
-from ssd.data.config import v2
 from lstm_model import RNNModel
 from ssd.layers.modules import MultiBoxLoss
 
