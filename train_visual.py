@@ -133,6 +133,7 @@ lang_model = RNNModel(args.rnn_model, ntokens, args.emsize, args.nhid,
 
 if args.cuda:
     lang_model.cuda()
+
 lang_model.eval()
 
 with open(args.lang_model, 'rb') as f:
