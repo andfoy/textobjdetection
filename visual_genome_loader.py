@@ -12,6 +12,32 @@ import torch.utils.data as data
 import visual_genome.local as vg
 
 
+def detection_collate(batch, rnnmodel):
+    """Custom collate fn for dealing with batches of images that have a different
+    number of associated object annotations (bounding boxes).
+
+    Arguments:
+        batch: (tuple) A tuple of tensor images and lists of annotations
+
+    Return:
+        A tuple containing:
+            1) (tensor) batch of images stacked on their 0 dim
+            2) (list of tensors) annotations for a given image
+                                 are stacked on 0 dim
+    """
+    targets = []
+    imgs = []
+    phrases = []
+    for sample in batch:
+        img, target, phrase = sample
+        imgs.append(img)
+        targets.append(torch.stack([torch.Tensor(a) for a in target], 0))
+        hidden = rnnmodel.init_hidden(phrase.size())
+        _, hidden = rnnmodel(phrase, hidden)
+        phrases.append(hidden)
+    return torch.stack(imgs, 0), targets, torch.stack(phrases, 0)
+
+
 class Dictionary(object):
     def __init__(self):
         self.word2idx = {}

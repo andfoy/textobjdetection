@@ -8,7 +8,7 @@ import os.path as osp
 from torch.autograd import Variable
 
 # import data
-import model
+import lstm_model as model
 
 parser = argparse.ArgumentParser(
     description='PyTorch VisualGenome RNN/LSTM Language Model')
