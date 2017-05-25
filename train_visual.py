@@ -66,7 +66,7 @@ parser.add_argument('--num-classes', type=int, default=2000,
                     help='number of classification categories')
 parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
-parser.add_argument('--lang-model', type=str, default='model.pt',
+parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
 
 args = parser.parse_args()
