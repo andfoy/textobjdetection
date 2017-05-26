@@ -200,7 +200,7 @@ def train(epoch):
 
             # '| loc loss {:.6f} | conf loss: {:.6f}'
             print('| epoch {} | {}/{} batches '
-                  '| ms/batch {:5.2f} | total loss {:5.2f} '.format(
+                  '| ms/batch {} | total loss {} '.format(
                       epoch, batch_idx, len(trainset), elapsed_time * 1000,
                       cur_total_loss, cur_loc_loss, cur_conf_loss))
 
