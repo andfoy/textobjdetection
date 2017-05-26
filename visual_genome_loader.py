@@ -219,14 +219,19 @@ class VisualGenomeLoader(data.Dataset):
                   for x in reg_graph}
 
         # obj_idx = {}
+        human_cat = frozenset({'man', 'woman', 'men', 'women', 'person',
+                               'people', 'human', 'lady', 'ladies',
+                               'guy', 'guys', 'boy', 'girl', 'boys',
+                               'girls', 'pedestrian', 'passenger'})
         obj_count = {}
         bar = progressbar.ProgressBar()
         for img in bar(img_id):
             for region in img_id[img]:
                 obj = frozenset([x.lower() for x in img_id[img][region]])
-                if obj not in obj_count:
-                    obj_count[obj] = 0
-                obj_count[obj] += 1
+                if len(obj & human_cat) > 0:
+                    if obj not in obj_count:
+                        obj_count[obj] = 0
+                    obj_count[obj] += 1
 
         top_objs = sorted(obj_count, key=lambda k: obj_count[k],
                           reverse=True)[:2000]
