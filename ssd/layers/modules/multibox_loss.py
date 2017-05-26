@@ -40,7 +40,7 @@ class MultiBoxLoss(nn.Module):
         self.threshold = overlap_thresh
         self.background_label = bkg_label
         self.encode_target = encode_target
-        self.use_prior_for_matching  = prior_for_matching
+        self.use_prior_for_matching = prior_for_matching
         self.do_neg_mining = neg_mining
         self.negpos_ratio = neg_pos
         self.neg_overlap = neg_overlap
@@ -77,8 +77,9 @@ class MultiBoxLoss(nn.Module):
             conf_t = conf_t.cuda()
         # wrap targets
         loc_t = Variable(loc_t, requires_grad=False)
-        conf_t = Variable(conf_t,requires_grad=False)
+        conf_t = Variable(conf_t, requires_grad=False)
 
+        print(conf_t)
         pos = conf_t > 0
         num_pos = pos.sum()
 
@@ -88,7 +89,7 @@ class MultiBoxLoss(nn.Module):
         pos_idx = pos.unsqueeze(pos.dim()).expand_as(loc_data)
         loc_p = loc_data[pos_idx].view(-1,4)
         loc_t = loc_t[pos_idx].view(-1,4)
-        print(loc_p)
+        # print(loc_p)
         loss_l = F.smooth_l1_loss(loc_p, loc_t, size_average=False)
 
         # Compute max conf across batch for hard negative mining
