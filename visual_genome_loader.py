@@ -390,13 +390,13 @@ class VisualGenomeLoader(data.Dataset):
         regions_obj_file = osp.join(self.data_path, self.top_folder,
                                     self.region_objects_file)
         with open(regions_obj_file, 'wb') as f:
-            torch.save(regions_objects)
+            torch.save(regions_objects, f)
 
         print("Saving object to index map...")
         obj_idx_path = osp.join(self.data_path, self.top_folder,
                                 self.obj_idx_file)
         with open(obj_idx_path, 'wb') as f:
-            torch.save(self.obj_idx)
+            torch.save(self.obj_idx, f)
 
         print("Done!")
 
