@@ -188,7 +188,7 @@ def train(epoch):
         loss.backward()
         optimizer.step()
 
-        total_loss += loss[0]
+        # total_loss += loss[0]
         loc_loss += loss_l[0]
         conf_loss += loss_c[0]
 
@@ -202,7 +202,7 @@ def train(epoch):
             print('| epoch {} | {}/{} batches '
                   '| ms/batch {} | total loss {} '.format(
                       epoch, batch_idx, len(trainset), elapsed_time * 1000,
-                      cur_total_loss, cur_loc_loss, cur_conf_loss))
+                      cur_loc_loss, cur_loc_loss, cur_conf_loss))
 
             total_loss = 0
             loc_loss = 0
