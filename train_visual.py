@@ -62,14 +62,14 @@ parser.add_argument('--dropout', type=float, default=0.2,
                     help='dropout applied to layers (0 = no dropout)')
 parser.add_argument('--tied', action='store_true',
                     help='tie the word embedding and softmax weights')
-parser.add_argument('--num-classes', type=int, default=2000,
+parser.add_argument('--num-classes', type=int, default=150,
                     help='number of classification categories')
 parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
 parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
-parser.add_argument('--top', type=int, default=150,
-                    help='pick top N visual categories')
+# parser.add_argument('--top', type=int, default=150,
+#                     help='pick top N visual categories')
 
 args = parser.parse_args()
 
@@ -95,7 +95,7 @@ trainset = VisualGenomeLoader(args.data,
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
                               target_transform=AnnotationTransform(),
-                              top=args.top)
+                              top=args.num_classes)
 
 print('Loading validation data...')
 validation = VisualGenomeLoader(args.data,
@@ -107,7 +107,7 @@ validation = VisualGenomeLoader(args.data,
                                         std=[0.229, 0.224, 0.225])]),
                                 target_transform=AnnotationTransform(),
                                 train=False,
-                                top=args.top)
+                                top=args.num_classes)
 
 if not osp.exists(args.save_folder):
     os.makedirs(args.save_folder)
