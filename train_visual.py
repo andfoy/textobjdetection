@@ -156,7 +156,8 @@ def weights_init(m):
 
 
 trainset = DataLoader(trainset, shuffle=True, collate_fn=lambda x:
-                      detection_collate(x, lang_model))
+                      detection_collate(x, lang_model),
+                      batch_size=args.batch_size)
 
 print('Initializing weights...')
 # initialize newly added layers' weights with xavier method
