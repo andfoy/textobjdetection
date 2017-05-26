@@ -72,6 +72,9 @@ class SSD(nn.Module):
         loc = list()
         conf = list()
 
+        if isinstance(x, tuple):
+            x, thoughts = x
+
         # apply vgg up to conv4_3 relu
         for k in range(23):
             x = self.vgg[k](x)
@@ -95,8 +98,8 @@ class SSD(nn.Module):
             loc.append(l(x).permute(0, 2, 3, 1).contiguous())
             conf.append(c(x).permute(0, 2, 3, 1).contiguous())
 
-        loc = torch.cat([o.view(o.size(0), -1) for o in loc], 1)
-        conf = torch.cat([o.view(o.size(0), -1) for o in conf], 1)
+        loc = torch.cat([o.view(o.size(0), -1) for o in loc] + [thoughts], 1)
+        conf = torch.cat([o.view(o.size(0), -1) for o in conf] + [thoughts], 1)
 
         if self.phase == "test":
             output = self.detect(

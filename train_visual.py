@@ -34,8 +34,6 @@ parser.add_argument('--batch-size', default=16, type=int,
                     help='Batch size for training')
 parser.add_argument('--num-workers', default=4, type=int,
                     help='Number of workers used in dataloading')
-parser.add_argument('--iterations', default=120000, type=int,
-                    help='Number of training epochs')
 parser.add_argument('--no-cuda', action='store_true',
                     help='Do not use cuda to train model')
 parser.add_argument('--lr', '--learning-rate', default=1e-3, type=float,
@@ -45,8 +43,8 @@ parser.add_argument('--weight-decay', default=5e-4, type=float,
                     help='Weight decay for SGD')
 parser.add_argument('--gamma', default=0.1, type=float,
                     help='Gamma update for SGD')
-parser.add_argument('--log-iters', action='store_true',
-                    help='Print the loss at each iteration')
+parser.add_argument('--log-interval', type=int, default=200, metavar='N',
+                    help='report interval')
 parser.add_argument('--save-folder', default='weights/',
                     help='Location to save checkpoint models')
 parser.add_argument('--rnn-model', type=str, default='LSTM',
@@ -68,6 +66,8 @@ parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
 parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
+parser.add_argument('--epochs', type=int, default=40,
+                    help='upper epoch limit')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -172,6 +172,44 @@ criterion = MultiBoxLoss(num_classes, 0.5, True, 0, True, 3, 0.5, False)
 
 def train(epoch):
     net.train()
-    for img, target, phrase in train:
-        pass
-        # hidden = lang_model.init_hidden()
+    loc_loss = 0
+    conf_loss = 0
+    total_loss = 0
+    start_time = time.time()
+    for batch_idx, (imgs, targets, thoughts) in enumerate(trainset):
+        if args.cuda:
+            imgs = Variable(imgs.cuda())
+            targets = [Variable(x.cuda()) for x in targets]
+            thoughts = thoughts.cuda()
+        optimizer.zero_grad()
+        out = net((imgs, thoughts))
+        loss_l, loss_c = criterion(out, targets)
+        loss = loss_l + loss_c
+        loss.backward()
+        optimizer.step()
+
+        total_loss += loss[0]
+        loc_loss += loss_l[0]
+        conf_loss += loss_c[0]
+
+        if batch_idx % args.log_interval == 0:
+            elapsed_time = time.time() - start_time
+            cur_total_loss = total_loss / args.log_interval
+            cur_loc_loss = loc_loss / args.log_interval
+            cur_conf_loss = conf_loss / args.log_interval
+
+            print('| epoch {:3d} | {:5d}/{:5d} batches '
+                  '| ms/batch {:5.2f} | total loss {:.6f} '
+                  '| loc loss {:.6f} | conf loss: {:.6f}'.format(
+                      epoch, batch_idx, len(trainset), elapsed_time * 1000,
+                      cur_total_loss, cur_loc_loss, cur_conf_loss))
+
+            total_loss = 0
+            loc_loss = 0
+            conf_loss = 0
+            start_time = time.time()
+
+
+if __name__ == '__main__':
+    for epoch in range(1, args.epochs + 1):
+        train(epoch)
