@@ -182,7 +182,7 @@ def train(epoch):
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
         optimizer.zero_grad()
-        out = net((imgs, thoughts))
+        out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
         loss.backward()
