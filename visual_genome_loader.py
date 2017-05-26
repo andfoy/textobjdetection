@@ -334,7 +334,7 @@ class VisualGenomeLoader(data.Dataset):
         #     if region[0].image.id in img_top_ids:
         #         regions += region
         regions, regions_objects = self.__filter_regions_by_class(
-            region_descriptions_full)
+            region_descriptions)
 
         print("Splitting region descriptions...")
         train_prop = int(np.ceil(len(regions) * 0.6))
