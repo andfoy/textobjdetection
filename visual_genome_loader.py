@@ -163,6 +163,10 @@ class VisualGenomeLoader(data.Dataset):
     region_train_file = 'region_train.pt'
     region_val_file = 'region_val.pt'
     region_test_file = 'region_test.pt'
+    human_cat = frozenset({'man', 'woman', 'men', 'women', 'person',
+                           'people', 'human', 'lady', 'ladies',
+                           'guy', 'guys', 'boy', 'girl', 'boys',
+                           'girls', 'pedestrian', 'passenger'})
 
     def __init__(self, root, transform=None, target_transform=None,
                  train=True, test=False, top=100):
@@ -219,16 +223,12 @@ class VisualGenomeLoader(data.Dataset):
                   for x in reg_graph}
 
         # obj_idx = {}
-        human_cat = frozenset({'man', 'woman', 'men', 'women', 'person',
-                               'people', 'human', 'lady', 'ladies',
-                               'guy', 'guys', 'boy', 'girl', 'boys',
-                               'girls', 'pedestrian', 'passenger'})
         obj_count = {}
         bar = progressbar.ProgressBar()
         for img in bar(img_id):
             for region in img_id[img]:
                 obj = frozenset([x.lower() for x in img_id[img][region]])
-                if len(obj & human_cat) > 0:
+                if len(obj & self.human_cat) > 0:
                     if obj not in obj_count:
                         obj_count[obj] = 0
                     obj_count[obj] += 1
