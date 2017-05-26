@@ -40,10 +40,10 @@ def detection_collate(batch, rnnmodel):
         phrase = phrase.view(phrase.size(0), -1)
         hidden = rnnmodel.init_hidden(phrase.size(1))
         _, hidden = rnnmodel(Variable(phrase.cuda()), hidden)
-        print(type(hidden))
-        print(len(hidden))
-        phrases.append(hidden[0].data)
-    print(len(phrases), phrases[0].size())
+        # print(type(hidden))
+        # print(len(hidden))
+        phrases.append(hidden[1].data)
+    # print(len(phrases), phrases[0].size())
     return torch.stack(imgs, 0), targets, torch.stack(phrases, 0)
 
 
