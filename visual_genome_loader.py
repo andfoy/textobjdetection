@@ -227,6 +227,7 @@ class VisualGenomeLoader(data.Dataset):
         with open(region_graph_file, 'r') as f:
             reg_graph = json.load(f)
 
+        print("Processing regions...")
         img_id = {x['image_id']: {y['region_id']: set([z['entity_name']
                                                        for z in y['synsets']] +
                                                       [z['name']
