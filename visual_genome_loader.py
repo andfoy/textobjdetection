@@ -163,6 +163,8 @@ class VisualGenomeLoader(data.Dataset):
     region_train_file = 'region_train.pt'
     region_val_file = 'region_val.pt'
     region_test_file = 'region_test.pt'
+    region_objects_file = 'region_objects.pt'
+    obj_idx_file = 'obj_idx.pt'
     human_cat = frozenset({'man', 'woman', 'men', 'women', 'person',
                            'people', 'human', 'lady', 'ladies',
                            'guy', 'guys', 'boy', 'girl', 'boys',
@@ -184,32 +186,42 @@ class VisualGenomeLoader(data.Dataset):
         if not self.__check_exists():
             self.process_dataset()
 
-        self.region_objects, self.obj_idx = self.load_region_objects()
+        # self.region_objects, self.obj_idx = self.load_region_objects()
 
         if train:
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = self.__filter_regions_by_class(torch.load(f))
+                self.regions = torch.load(f)
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
         else:
             val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
         with open(corpus_file, 'rb') as f:
             self.corpus = torch.load(f)
 
+        region_obj_file = osp.join(self.data_path, self.top_folder,
+                                   self.region_objects_file)
+        with open(region_obj_file, 'rb') as f:
+            self.region_objects = torch.load(f)
+
+        obj_idx_path = osp.join(self.data_path, self.top_folder,
+                                self.obj_idx_file)
+
+        with open(obj_idx_path, 'rb') as f:
+            self.obj_idx = torch.load(f)
         # del region_objects
 
-    def load_region_objects(self):
+    def __load_region_objects(self):
         print("Loading region objects...")
         region_graph_file = osp.join(self.root, 'region_graphs.json')
         with open(region_graph_file, 'r') as f:
@@ -223,6 +235,7 @@ class VisualGenomeLoader(data.Dataset):
                   for x in reg_graph}
 
         # obj_idx = {}
+        print("Filtering top {0} human categories...".format(self.top_objects))
         obj_count = {}
         bar = progressbar.ProgressBar()
         for img in bar(img_id):
@@ -234,7 +247,7 @@ class VisualGenomeLoader(data.Dataset):
                     obj_count[obj] += 1
 
         top_objs = sorted(obj_count, key=lambda k: obj_count[k],
-                          reverse=True)[:2000]
+                          reverse=True)[:self.top_objects]
         obj_idx = {top_objs[i]: i for i in range(0, len(top_objs))}
         # del obj_count
         return img_id, obj_idx
@@ -251,6 +264,7 @@ class VisualGenomeLoader(data.Dataset):
     def __filter_regions_by_class(self, regions):
         print("Filtering regions...")
         act_regions = []
+        region_sub = {}
         bar = progressbar.ProgressBar()
         for region in bar(regions):
             try:
@@ -262,7 +276,12 @@ class VisualGenomeLoader(data.Dataset):
 
             if reg_obj in self.obj_idx:
                 act_regions.append(region)
-        return act_regions
+                if region.image.id not in region_sub:
+                    region_sub[region.image.id] = {}
+                reg_img = region_sub[region.image.id]
+                global_region_img = self.region_objects[region.image.id]
+                reg_img[region.id] = global_region_img[region.id]
+        return act_regions, region_sub
 
     def __check_exists(self):
         path = osp.join(self.data_path, self.top_folder)
@@ -278,8 +297,9 @@ class VisualGenomeLoader(data.Dataset):
             else:
                 raise
 
-        print("Generating top images set...")
-        img_top_ids = self.get_top_images()
+        # print("Generating top images set...")
+        # img_top_ids = self.get_top_images()
+        self.region_objects, self.obj_idx = self.__load_region_objects()
 
         print("Processing region descriptions...")
         region_descriptions_full = vg.get_all_region_descriptions(
@@ -306,13 +326,15 @@ class VisualGenomeLoader(data.Dataset):
             with open(corpus_path, 'wb') as f:
                 torch.save(corpus, f)
 
-        print("Selecting region descriptions from top images...")
-        regions = []
-        bar = progressbar.ProgressBar()
-        for region in bar(region_descriptions_full):
-            # print("Processing region: {0}".format(i))
-            if region[0].image.id in img_top_ids:
-                regions += region
+        # print("Selecting region descriptions from top images...")
+        # regions = []
+        # bar = progressbar.ProgressBar()
+        # for region in bar(region_descriptions_full):
+        #     # print("Processing region: {0}".format(i))
+        #     if region[0].image.id in img_top_ids:
+        #         regions += region
+        regions, regions_objects = self.__filter_regions_by_class(
+            region_descriptions_full)
 
         print("Splitting region descriptions...")
         train_prop = int(np.ceil(len(regions) * 0.6))
@@ -363,6 +385,18 @@ class VisualGenomeLoader(data.Dataset):
                              self.region_test_file)
         with open(test_file, 'wb') as f:
             torch.save(test_regions, f)
+
+        print("Saving dataset objects per region...")
+        regions_obj_file = osp.join(self.data_path, self.top_folder,
+                                    self.region_objects_file)
+        with open(regions_obj_file, 'wb') as f:
+            torch.save(regions_objects)
+
+        print("Saving object to index map...")
+        obj_idx_path = osp.join(self.data_path, self.top_folder,
+                                self.obj_idx_file)
+        with open(obj_idx_path, 'wb') as f:
+            torch.save(self.obj_idx)
 
         print("Done!")
 

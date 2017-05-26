@@ -68,6 +68,8 @@ parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
 parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
+parser.add_argument('--top', type=int, default=150,
+                    help='pick top N visual categories')
 
 args = parser.parse_args()
 
@@ -92,7 +94,8 @@ trainset = VisualGenomeLoader(args.data,
                                   transforms.Normalize(
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
-                              target_transform=AnnotationTransform())
+                              target_transform=AnnotationTransform(),
+                              top=args.top)
 
 print('Loading validation data...')
 validation = VisualGenomeLoader(args.data,
@@ -103,7 +106,8 @@ validation = VisualGenomeLoader(args.data,
                                         mean=[0.485, 0.456, 0.406],
                                         std=[0.229, 0.224, 0.225])]),
                                 target_transform=AnnotationTransform(),
-                                train=False)
+                                train=False,
+                                top=args.top)
 
 if not osp.exists(args.save_folder):
     os.makedirs(args.save_folder)
