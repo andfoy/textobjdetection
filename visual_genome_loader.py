@@ -30,9 +30,10 @@ def detection_collate(batch, rnnmodel):
     imgs = []
     phrases = []
     for sample in batch:
-        img, target, phrases = sample
+        idx, img, target, phrases = sample
         imgs.append(img)
         targets.append(torch.stack([torch.Tensor(a) for a in target], 0))
+        print(idx)
         for phrase in phrases:
             # print(phrase)
             phrase_col = phrase.view(phrase.size(0), -1)
@@ -460,7 +461,7 @@ class VisualGenomeLoader(data.Dataset):
         # target = torch.LongTensor([region.x, region.y,
         # region.width, region.height])
         # return img, phrase, target
-        return img, bboxes, phrases
+        return idx, img, bboxes, phrases
 
 
 class VisualGenomeLoaderFull(data.Dataset):
