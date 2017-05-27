@@ -90,23 +90,23 @@ ssd_dim = 300
 batch_size = args.batch_size
 
 print('Loading train data...')
-trainset = VisualGenomeLoader(args.data,
-                              transform=transforms.Compose([
-                                  ResizeTransform((300, 300)),
-                                  transforms.ToTensor(),
-                                  transforms.Normalize(
-                                      mean=[0.485, 0.456, 0.406],
-                                      std=[0.229, 0.224, 0.225])]),
-                              target_transform=AnnotationTransformComplete(),
-                              top=args.num_classes)
-
-# ssd_dim = 300  # only support 300 now
-# rgb_means = (104, 117, 123)  # only support voc now
-
 # trainset = VisualGenomeLoader(args.data,
-#                               transform=BaseTransform(ssd_dim, rgb_means),
+#                               transform=transforms.Compose([
+#                                   ResizeTransform((300, 300)),
+#                                   transforms.ToTensor(),
+#                                   transforms.Normalize(
+#                                       mean=[0.485, 0.456, 0.406],
+#                                       std=[0.229, 0.224, 0.225])]),
 #                               target_transform=AnnotationTransformComplete(),
 #                               top=args.num_classes)
+
+ssd_dim = 300  # only support 300 now
+rgb_means = (104, 117, 123)  # only support voc now
+
+trainset = VisualGenomeLoader(args.data,
+                              transform=BaseTransform(ssd_dim, rgb_means),
+                              target_transform=AnnotationTransformComplete(),
+                              top=args.num_classes)
 
 
 print('Loading validation data...')
@@ -128,28 +128,28 @@ net = build_ssd('train', ssd_dim, num_classes)
 
 print('Loading base network...')
 
-# vgg_weights = torch.load(osp.join(args.save_folder, args.basenet))
+vgg_weights = torch.load(osp.join(args.save_folder, args.basenet))
 # print('Loading base network...')
-# net.vgg.load_state_dict(vgg_weights)
-
-# if args.cuda:
-#     net.cuda()
-#     cudnn.benchmark = True
-
-vgg = models.vgg16(pretrained=True).state_dict()
-
-state_dict = net.state_dict()
-for layer in vgg:
-    if layer.startswith('features'):
-        _, layer_name = layer.split('features.')
-        state_dict['vgg.' + layer_name] = vgg[layer]
-
-# net.load_state_dict(state_dict)
+net.vgg.load_state_dict(vgg_weights)
 
 if args.cuda:
     net.cuda()
+    cudnn.benchmark = True
 
-net.load_state_dict(state_dict)
+# vgg = models.vgg16(pretrained=True).state_dict()
+
+# state_dict = net.state_dict()
+# for layer in vgg:
+#     if layer.startswith('features'):
+#         _, layer_name = layer.split('features.')
+#         state_dict['vgg.' + layer_name] = vgg[layer]
+
+# # net.load_state_dict(state_dict)
+
+# if args.cuda:
+#     net.cuda()
+
+# net.load_state_dict(state_dict)
 
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
@@ -191,7 +191,7 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr,
 criterion = MultiBoxLoss(num_classes, 0.5, True, 0, True, 3, 0.5, False)
 
 
-def train(epoch):
+def train_old(epoch):
     net.train()
     loc_loss = 0
     conf_loss = 0
@@ -210,8 +210,8 @@ def train(epoch):
         optimizer.step()
 
         # total_loss += loss[0]
-        loc_loss += loss_l[0]
-        conf_loss += loss_c[0]
+        loc_loss += loss_l.data[0]
+        conf_loss += loss_c.data[0]
 
         if batch_idx % args.log_interval == 0:
             elapsed_time = time.time() - start_time
@@ -233,4 +233,4 @@ def train(epoch):
 
 if __name__ == '__main__':
     for epoch in range(1, args.epochs + 1):
-        train(epoch)
+        train_old(epoch)
