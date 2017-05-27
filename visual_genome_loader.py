@@ -28,7 +28,7 @@ def detection_collate(batch, rnnmodel):
     """
     targets = []
     imgs = []
-    phrases = []
+    thoughts = []
     for sample in batch:
         idx, img, target, phrases = sample
         imgs.append(img)
@@ -43,10 +43,10 @@ def detection_collate(batch, rnnmodel):
             hidden = rnnmodel.init_hidden(phrase_col.size(1))
             _, hidden = rnnmodel(Variable(phrase_col.cuda()), hidden)
             hidden = torch.stack(hidden, 0).view(-1, 1).data
-            print(idx, i, type(hidden))
-            phrases.append(hidden)
-    print([type(x) for x in phrases])
-    return torch.stack(imgs, 0), targets, torch.stack(phrases, 0)
+            # print(idx, i, type(hidden))
+            thoughts.append(hidden)
+    # print([type(x) for x in thoughts])
+    return torch.stack(imgs, 0), targets, torch.stack(thoughts, 0)
 
 
 class Dictionary(object):
