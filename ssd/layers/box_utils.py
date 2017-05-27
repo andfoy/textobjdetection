@@ -140,7 +140,7 @@ def encode(matched, priors, variances):
     g_wh = (matched[:, 2:] - matched[:, :2]) / priors[:, 2:]
     # print("Before Log: ", g_wh.sum())
     # print("Variance: ", variances[1])
-    g_wh = torch.log(g_wh) / variances[1]
+    g_wh = torch.log(torch.abs(g_wh)) / variances[1]
     # print("After Log: ", g_wh.sum())
     # return target for smooth_l1_loss
     return torch.cat([g_cxcy, g_wh], 1)  # [num_priors,4]
