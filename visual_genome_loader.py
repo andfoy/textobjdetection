@@ -146,8 +146,8 @@ class AnnotationTransform(object):
         if reg_obj in objects_idx:
             cat = objects_idx[reg_obj]
             bbx = [region.x / width, region.y / height,
-                   (region.x * 0 + region.width) / width,
-                   (region.y * 0 + region.height) / width,
+                   (region.x + region.width) / width,
+                   (region.y + region.height) / width,
                    cat]
             bboxes.append(bbx)
             phrase = corpus.tokenize(region.phrase)
