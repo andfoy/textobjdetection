@@ -221,7 +221,8 @@ def train_old(epoch):
 
             # '| loc loss {:.6f} | conf loss: {:.6f}'
             print('| epoch {} | {}/{} batches '
-                  '| ms/batch {} | total loss {} '.format(
+                  '| ms/batch {} | total loss {} '
+                  '| loc loss {:.6f} | conf loss: {:.6f}'.format(
                       epoch, batch_idx, len(trainset), elapsed_time * 1000,
                       cur_loc_loss, cur_loc_loss, cur_conf_loss))
 
