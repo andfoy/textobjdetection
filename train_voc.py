@@ -31,7 +31,7 @@ parser.add_argument('--gamma', default=0.1, type=float, help='Gamma update for S
 parser.add_argument('--log_iters', default=True, type=bool, help='Print the loss at each iteration')
 parser.add_argument('--visdom', default=False, type=bool, help='Use visdom to for loss visualization')
 parser.add_argument('--save_folder', default='weights/', help='Location to save checkpoint models')
-parser.add_argument('--voc-folder', default='~/data/VOCdevkit/', help='Location to VOC dataset')
+parser.add_argument('--voc-folder', default='../data/VOCdevkit/', help='Location to VOC dataset')
 args = parser.parse_args()
 
 cfg = (v1, v2)[args.version == 'v2']

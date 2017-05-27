@@ -30,13 +30,14 @@ def detection_collate(batch, rnnmodel):
     imgs = []
     phrases = []
     for sample in batch:
-        img, target, phrase = sample
+        img, target, phrases = sample
         imgs.append(img)
         targets.append(torch.stack([torch.Tensor(a) for a in target], 0))
-        phrase = phrase.view(phrase.size(0), -1)
-        hidden = rnnmodel.init_hidden(phrase.size(1))
-        _, hidden = rnnmodel(Variable(phrase.cuda()), hidden)
-        phrases.append(torch.stack(hidden, 0))
+        for phrase in phrases:
+            phrase = phrase.view(phrase.size(0), -1)
+            hidden = rnnmodel.init_hidden(phrase.size(1))
+            _, hidden = rnnmodel(Variable(phrase.cuda()), hidden)
+            phrases.append(torch.stack(hidden, 0))
     return torch.stack(imgs, 0), targets, torch.stack(phrases, 0).view(-1, 1)
 
 
@@ -189,17 +190,17 @@ class VisualGenomeLoader(data.Dataset):
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
         else:
             val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
-                self.regions = torch.load(f)
+                self.regions = self.__group_regions_by_id(torch.load(f))
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
@@ -433,10 +434,10 @@ class VisualGenomeLoader(data.Dataset):
         return len(self.regions)
 
     def __getitem__(self, idx):
-        region = self.regions[idx]
-        # regions = self.regions[idx]
-        # image_info = regions[0].image
-        image_info = region.image
+        # region = self.regions[idx]
+        regions = self.regions[idx]
+        image_info = regions[0].image
+        # image_info = region.image
 
         # if image_info.id not in self.cache:
         image_path = image_info.url.split('/')[-2:]
@@ -447,7 +448,7 @@ class VisualGenomeLoader(data.Dataset):
         # img = self.cache[image_info.id]
         img = self.transform(img)
 
-        bboxes, phrases = self.target_transform(region,
+        bboxes, phrases = self.target_transform(regions,
                                                 self.corpus,
                                                 self.region_objects,
                                                 self.obj_idx,

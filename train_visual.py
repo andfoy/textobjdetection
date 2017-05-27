@@ -19,7 +19,7 @@ from ssd.layers.modules import MultiBoxLoss
 from torch.utils.data import DataLoader
 from torchvision import transforms, models
 from visual_genome_loader import (VisualGenomeLoader,
-                                  AnnotationTransform,
+                                  AnnotationTransformComplete,
                                   ResizeTransform,
                                   detection_collate)
 
@@ -68,6 +68,8 @@ parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
 parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
+parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
+                    help='pretrained base model')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -94,7 +96,7 @@ trainset = VisualGenomeLoader(args.data,
                                   transforms.Normalize(
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
-                              target_transform=AnnotationTransform(),
+                              target_transform=AnnotationTransformComplete(),
                               top=args.num_classes)
 
 print('Loading validation data...')
@@ -105,7 +107,7 @@ validation = VisualGenomeLoader(args.data,
                                     transforms.Normalize(
                                         mean=[0.485, 0.456, 0.406],
                                         std=[0.229, 0.224, 0.225])]),
-                                target_transform=AnnotationTransform(),
+                                target_transform=AnnotationTransformComplete(),
                                 train=False,
                                 top=args.num_classes)
 
@@ -115,20 +117,20 @@ if not osp.exists(args.save_folder):
 net = build_ssd('train', ssd_dim, num_classes)
 
 print('Loading base network...')
-vgg = models.vgg16(pretrained=True).state_dict()
+# vgg = models.vgg16(pretrained=True).state_dict()
 
-state_dict = net.state_dict()
-for layer in vgg:
-    if layer.startswith('features'):
-        _, layer_name = layer.split('features.')
-        state_dict['vgg.' + layer_name] = vgg[layer]
+# state_dict = net.state_dict()
+# for layer in vgg:
+#     if layer.startswith('features'):
+#         _, layer_name = layer.split('features.')
+#         state_dict['vgg.' + layer_name] = vgg[layer]
 
 # net.load_state_dict(state_dict)
 
 if args.cuda:
     net.cuda()
 
-net.load_state_dict(state_dict)
+# net.load_state_dict(state_dict)
 
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
