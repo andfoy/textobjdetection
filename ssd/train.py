@@ -10,7 +10,7 @@ import torch.nn.init as init
 import argparse
 from torch.autograd import Variable
 import torch.utils.data as data
-from data import VOCroot, v2, v1, AnnotationTransform, VOCDetection, detection_collate, BaseTransform
+from data import v2, v1, AnnotationTransform, VOCDetection, detection_collate, BaseTransform
 from layers.modules import MultiBoxLoss
 from ssd import build_ssd
 import time
@@ -31,6 +31,7 @@ parser.add_argument('--gamma', default=0.1, type=float, help='Gamma update for S
 parser.add_argument('--log_iters', default=True, type=bool, help='Print the loss at each iteration')
 parser.add_argument('--visdom', default=False, type=bool, help='Use visdom to for loss visualization')
 parser.add_argument('--save_folder', default='weights/', help='Location to save checkpoint models')
+parser.add_argument('--voc-folder', default='~/data/VOCdevkit/', help='Location to VOC dataset')
 args = parser.parse_args()
 
 cfg = (v1, v2)[args.version == 'v2']
@@ -95,7 +96,7 @@ def train():
     epoch = 0
     print('Loading Dataset...')
 
-    dataset = VOCDetection(VOCroot, train_sets, BaseTransform(
+    dataset = VOCDetection(args.voc_folder, train_sets, BaseTransform(
         ssd_dim, rgb_means), AnnotationTransform())
     epoch_size = len(dataset) // args.batch_size
     print('Training SSD on', dataset.name)
