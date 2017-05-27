@@ -60,8 +60,8 @@ class MultiBoxLoss(nn.Module):
         """
 
         loc_data, conf_data, priors = predictions
-        print(loc_data.data.max())
-        print(loc_data.data.min())
+        # print(loc_data.data.max())
+        # print(loc_data.data.min())
         num = loc_data.size(0)
         num_priors = (priors.size(0))
         num_classes = self.num_classes
