@@ -34,10 +34,11 @@ def detection_collate(batch, rnnmodel):
         imgs.append(img)
         targets.append(torch.stack([torch.Tensor(a) for a in target], 0))
         print(idx)
-        for phrase in phrases:
+        print(len(phrases))
+        for i, phrase in enumerate(phrases):
             # print(phrase)
             phrase_col = phrase.view(phrase.size(0), -1)
-            print(type(phrase_col))
+            print(i, type(phrase_col))
             hidden = rnnmodel.init_hidden(phrase_col.size(1))
             _, hidden = rnnmodel(Variable(phrase_col.cuda()), hidden)
             phrases.append(torch.stack(hidden, 0))
