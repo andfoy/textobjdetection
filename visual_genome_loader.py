@@ -463,8 +463,8 @@ class VisualGenomeLoader(data.Dataset):
         # if image_info.id not in self.cache:
         image_path = image_info.url.split('/')[-2:]
         image_path = osp.join(self.root, *image_path)
-        img = cv2.imread(image_path, cv2.IMREAD_COLOR)
-        # img = Image.open(image_path).convert('RGB')
+        # img = cv2.imread(image_path, cv2.IMREAD_COLOR)
+        img = Image.open(image_path).convert('RGB')
         # self.cache[image_info.id] = img
 
         # img = self.cache[image_info.id]
