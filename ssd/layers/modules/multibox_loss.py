@@ -73,11 +73,13 @@ class MultiBoxLoss(nn.Module):
             truths = targets[idx][:, :-1].data
             labels = targets[idx][:, -1].data
             defaults = priors.data
-            match(self.threshold,truths,defaults,self.variance,labels,loc_t,conf_t,idx)
+            match(self.threshold, truths, defaults,
+                  self.variance, labels, loc_t, conf_t, idx)
         if GPU:
             loc_t = loc_t.cuda()
             conf_t = conf_t.cuda()
         # wrap targets
+        print(loc_t.sum())
         loc_t = Variable(loc_t, requires_grad=False)
         conf_t = Variable(conf_t, requires_grad=False)
 
@@ -92,7 +94,7 @@ class MultiBoxLoss(nn.Module):
         # print(pos)
         pos_idx = pos.unsqueeze(pos.dim()).expand_as(loc_data)
         loc_p = loc_data[pos_idx].view(-1, 4)
-        print(loc_p.sum())
+        # print(loc_p.sum())
         # print(loc_p.data.min())
         # print(loc_p)
         loc_t = loc_t[pos_idx].view(-1, 4)
