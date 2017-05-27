@@ -60,6 +60,8 @@ class MultiBoxLoss(nn.Module):
         """
 
         loc_data, conf_data, priors = predictions
+        print(loc_data.data.max())
+        print(loc_data.data.min())
         num = loc_data.size(0)
         num_priors = (priors.size(0))
         num_classes = self.num_classes
@@ -68,8 +70,8 @@ class MultiBoxLoss(nn.Module):
         loc_t = torch.Tensor(num, num_priors, 4)
         conf_t = torch.LongTensor(num, num_priors)
         for idx in range(num):
-            truths = targets[idx][:,:-1].data
-            labels = targets[idx][:,-1].data
+            truths = targets[idx][:, :-1].data
+            labels = targets[idx][:, -1].data
             defaults = priors.data
             match(self.threshold,truths,defaults,self.variance,labels,loc_t,conf_t,idx)
         if GPU:
@@ -89,10 +91,10 @@ class MultiBoxLoss(nn.Module):
         # Shape: [batch,num_priors,4]
         # print(pos)
         pos_idx = pos.unsqueeze(pos.dim()).expand_as(loc_data)
-        loc_p = loc_data[pos_idx].view(-1,4)
-        print(loc_p)
-        loc_t = loc_t[pos_idx].view(-1,4)
-        print(loc_t)
+        loc_p = loc_data[pos_idx].view(-1, 4)
+        # print(loc_p)
+        loc_t = loc_t[pos_idx].view(-1, 4)
+        # print(loc_t)
         loss_l = F.smooth_l1_loss(loc_p, loc_t, size_average=False)
 
         # Compute max conf across batch for hard negative mining
