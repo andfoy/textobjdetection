@@ -79,7 +79,7 @@ class MultiBoxLoss(nn.Module):
         loc_t = Variable(loc_t, requires_grad=False)
         conf_t = Variable(conf_t, requires_grad=False)
 
-        print(conf_t)
+        # print(conf_t)
         pos = conf_t > 0
         num_pos = pos.sum()
 
