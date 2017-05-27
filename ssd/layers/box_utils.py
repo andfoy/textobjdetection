@@ -94,7 +94,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
         truths,
         point_form(priors)
     )
-    print(overlaps.sum())
+    # print(overlaps.sum())
     # (Bipartite Matching)
     # [1,num_objects] best prior for each ground truth
     best_prior_overlap, best_prior_idx = overlaps.max(1)
@@ -113,6 +113,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
     conf = labels[best_truth_idx] + 1         # Shape: [num_priors]
     conf[best_truth_overlap < threshold] = 0  # label as background
     loc = encode(matches, priors, variances)
+    print(loc)
     loc_t[idx] = loc    # [num_priors,4] encoded offsets to learn
     conf_t[idx] = conf  # [num_priors] top class label for each prior
 
