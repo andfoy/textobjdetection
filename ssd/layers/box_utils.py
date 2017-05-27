@@ -138,7 +138,7 @@ def encode(matched, priors, variances):
     # print(g_cxcy.sum())
     # match wh / prior wh
     g_wh = (matched[:, 2:] - matched[:, :2]) / priors[:, 2:]
-    # print("Before Log: ", g_wh.sum())
+    print("Abs comparison: ", g_wh.sum(), torch.abs(g_wh).sum())
     # print("Variance: ", variances[1])
     g_wh = torch.log(g_wh) / variances[1]
     # print("After Log: ", g_wh.sum())
