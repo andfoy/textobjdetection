@@ -433,6 +433,24 @@ class VisualGenomeLoader(data.Dataset):
 
         return valid_img_ids
 
+    def pull_image(self, idx):
+        regions = self.regions[idx]
+        image_info = regions[0].image
+        image_path = image_info.url.split('/')[-2:]
+        image_path = osp.join(self.root, *image_path)
+        return cv2.imread(image_path, cv2.IMREAD_COLOR)
+
+    def pull_anno(self, idx):
+        regions = self.regions[idx]
+        bboxes = []
+        phrases = []
+        for region in regions:
+            bbx = [region.x, region.y,
+                   (region.x + region.width),
+                   (region.y + region.height)]
+            bboxes.append(bbx)
+            phrases.append(region.phrase)
+
     def __len__(self):
         return len(self.regions)
 

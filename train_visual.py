@@ -220,8 +220,8 @@ def train_old(epoch):
             cur_conf_loss = conf_loss / args.log_interval
 
             # '| loc loss {:.6f} | conf loss: {:.6f}'
-            print('| epoch {} | {}/{} batches '
-                  '| ms/batch {} | total loss {} '
+            print('| epoch {:5d} | {:5d}/{:5d} batches '
+                  '| ms/batch {:.6f} | total loss {:.6f} '
                   '| loc loss {:.6f} | conf loss: {:.6f}'.format(
                       epoch, batch_idx, len(trainset), elapsed_time * 1000,
                       cur_loc_loss, cur_loc_loss, cur_conf_loss))
