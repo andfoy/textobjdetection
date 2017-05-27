@@ -79,8 +79,8 @@ class MultiBoxLoss(nn.Module):
             conf_t = conf_t.cuda()
         # wrap targets
         loc_t = Variable(loc_t, requires_grad=False)
-        print(log_t.data.max())
-        print(log_t.data.min())
+        print(loc_t.data.max())
+        print(loc_t.data.min())
         conf_t = Variable(conf_t, requires_grad=False)
 
         # print(conf_t)
