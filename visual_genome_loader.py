@@ -450,6 +450,7 @@ class VisualGenomeLoader(data.Dataset):
                    (region.y + region.height)]
             bboxes.append(bbx)
             phrases.append(region.phrase)
+        return bboxes, phrases
 
     def __len__(self):
         return len(self.regions)
