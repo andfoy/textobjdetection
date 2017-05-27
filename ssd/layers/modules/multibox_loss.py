@@ -83,7 +83,7 @@ class MultiBoxLoss(nn.Module):
         # print(conf_t.sum())
         pos = conf_t > 0
         num_pos = pos.sum()
-        print(num_pos)
+        # print(num_pos)
 
         # Localization Loss (Smooth L1)
         # Shape: [batch,num_priors,4]
@@ -93,6 +93,7 @@ class MultiBoxLoss(nn.Module):
         loc_t = loc_t[pos_idx].view(-1,4)
         # print(loc_p)
         loss_l = F.smooth_l1_loss(loc_p, loc_t, size_average=False)
+        print(loss_l)
 
         # Compute max conf across batch for hard negative mining
         batch_conf = conf_data.view(-1,self.num_classes)
