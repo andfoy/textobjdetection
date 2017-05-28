@@ -91,6 +91,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
     """
     # jaccard index
     print(truths)
+    print(priors)
     overlaps = jaccard(
         truths,
         point_form(priors)
