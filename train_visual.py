@@ -79,7 +79,7 @@ parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
 args = parser.parse_args()
 
 args.cuda = not args.no_cuda and torch.cuda.is_available()
-kwargs = {'num_workers': args.num_workers,
+kwargs = {'num_workers': 1,
           'pin_memory': True} if args.cuda else {}
 
 
@@ -128,8 +128,6 @@ if not osp.exists(args.save_folder):
     os.makedirs(args.save_folder)
 
 net = build_ssd('train', ssd_dim, num_classes)
-if args.cuda:
-    net.cuda()
 
 weights_path = osp.join(args.save_folder, args.save)
 if osp.exists(weights_path):
@@ -137,29 +135,32 @@ if osp.exists(weights_path):
     with open(weights_path, 'rb') as f:
         state_dict = torch.load(f)
         net.load_state_dict(state_dict)
-else:
-    print('Loading base network...')
 
-    # vgg_weights = torch.load(osp.join(args.save_folder, args.basenet))
-    # # print('Loading base network...')
-    # net.vgg.load_state_dict(vgg_weights)
 
-    # if args.cuda:
-    #     net.cuda()
-    #     cudnn.benchmark = True
+print('Loading base network...')
 
-    vgg = models.vgg16(pretrained=True).state_dict()
+# vgg_weights = torch.load(osp.join(args.save_folder, args.basenet))
+# # print('Loading base network...')
+# net.vgg.load_state_dict(vgg_weights)
 
-    state_dict = net.state_dict()
-    for layer in vgg:
-        if layer.startswith('features'):
-            _, layer_name = layer.split('features.')
-            state_dict['vgg.' + layer_name] = vgg[layer]
+# if args.cuda:
+#     net.cuda()
+#     cudnn.benchmark = True
 
-    net.load_state_dict(state_dict)
+vgg = models.vgg16(pretrained=True).state_dict()
 
+state_dict = net.state_dict()
+for layer in vgg:
+    if layer.startswith('features'):
+        _, layer_name = layer.split('features.')
+        state_dict['vgg.' + layer_name] = vgg[layer]
 
 # net.load_state_dict(state_dict)
+
+if args.cuda:
+    net.cuda()
+
+net.load_state_dict(state_dict)
 
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
