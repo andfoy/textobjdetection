@@ -192,7 +192,6 @@ criterion = MultiBoxLoss(num_classes, 0.5, True, 0, True, 3, 0.5, False)
 
 
 def train_old(epoch):
-    net.train()
     loc_loss = 0
     conf_loss = 0
     total_loss = 0
@@ -233,5 +232,6 @@ def train_old(epoch):
 
 
 if __name__ == '__main__':
+    net.train()
     for epoch in range(1, args.epochs + 1):
         train_old(epoch)

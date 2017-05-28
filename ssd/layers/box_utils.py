@@ -90,8 +90,9 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
         The matched indices corresponding to 1)location and 2)confidence preds.
     """
     # jaccard index
-    print(truths)
-    print(priors)
+    # print(truths)
+    print(priors.max())
+    print(priors.min())
     overlaps = jaccard(
         truths,
         point_form(priors)
@@ -101,6 +102,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
     # (Bipartite Matching)
     # [1,num_objects] best prior for each ground truth
     best_prior_overlap, best_prior_idx = overlaps.max(1)
+    print(best_prior_overlap)
     # [1,num_priors] best ground truth for each prior
     best_truth_overlap, best_truth_idx = overlaps.max(0)
     best_truth_idx.squeeze_(0)
