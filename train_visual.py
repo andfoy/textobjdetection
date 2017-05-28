@@ -178,11 +178,11 @@ def weights_init(m):
 
 trainset = DataLoader(trainset, shuffle=True, collate_fn=lambda x:
                       detection_collate(x, lang_model),
-                      batch_size=args.batch_size, **kwargs)
+                      batch_size=args.batch_size)
 
 validationset = DataLoader(validation, shuffle=True, collate_fn=lambda x:
                            detection_collate(x, lang_model),
-                           batch_size=args.batch_size, **kwargs)
+                           batch_size=args.batch_size)
 
 
 print('Initializing weights...')
@@ -208,7 +208,7 @@ def train(epoch):
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
         optimizer.zero_grad()
-        # print(thoughts.size())
+        print(thoughts.size())
         out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
@@ -253,8 +253,35 @@ def evaluate(data_source):
     return total_loss / len(data_source)
 
 
+def adjust_learning_rate(optimizer, gamma, step):
+    """Sets the learning rate to the initial LR decayed
+       by 10 at every specified step
+       Adapted from PyTorch Imagenet example:
+       https://github.com/pytorch/examples/blob/master/imagenet/main.py
+    """
+    lr = args.lr * (gamma ** (step))
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
+
+
 if __name__ == '__main__':
-    for epoch in range(1, args.epochs + 1):
-        epoch_start_time = time.time()
-        train(epoch)
-        evaluate(validationset)
+    best_val_loss = None
+    try:
+        for epoch in range(1, args.epochs + 1):
+            epoch_start_time = time.time()
+            train(epoch)
+            val_loss = evaluate(validationset)
+            print('-' * 89)
+            print('| end of epoch {:3d} | time: {:5.2f}s '
+                  '| valid loss {:.6f} | '.format(
+                      epoch, time.time() - epoch_start_time, val_loss))
+            print('-' * 89)
+            if best_val_loss is None or val_loss < best_val_loss:
+                file_name = osp.join(args.save_folder, args.save) + '.pt'
+                with open(file_name, 'wb') as f:
+                    torch.save(net.state_dict(), f)
+            else:
+                adjust_learning_rate(optimizer, args.gamma, epoch)
+    except KeyboardInterrupt:
+        print('-' * 89)
+        print('Exiting from training early')
