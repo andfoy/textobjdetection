@@ -178,7 +178,12 @@ def weights_init(m):
 
 trainset = DataLoader(trainset, shuffle=True, collate_fn=lambda x:
                       detection_collate(x, lang_model),
-                      batch_size=args.batch_size)
+                      batch_size=args.batch_size, **kwargs)
+
+validationset = DataLoader(validation, shuffle=True, collate_fn=lambda x:
+                           detection_collate(x, lang_model),
+                           batch_size=args.batch_size, **kwargs)
+
 
 print('Initializing weights...')
 # initialize newly added layers' weights with xavier method
@@ -191,7 +196,8 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr,
 criterion = MultiBoxLoss(num_classes, 0.5, True, 0, True, 3, 0.5, False)
 
 
-def train_old(epoch):
+def train(epoch):
+    net.train()
     loc_loss = 0
     conf_loss = 0
     total_loss = 0
@@ -202,6 +208,7 @@ def train_old(epoch):
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
         optimizer.zero_grad()
+        # print(thoughts.size())
         out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
@@ -231,7 +238,23 @@ def train_old(epoch):
             start_time = time.time()
 
 
+def evaluate(data_source):
+    net.eval()
+    total_loss = 0
+    for batch_idx, (imgs, targets, thoughts) in enumerate(data_source):
+        if args.cuda:
+            imgs = Variable(imgs.cuda())
+            targets = [Variable(x.cuda()) for x in targets]
+            thoughts = thoughts.cuda()
+        out = net(imgs)
+        loss_l, loss_c = criterion(out, targets)
+        loss = loss_l + loss_c
+        total_loss += loss.data[0]
+    return total_loss / len(data_source)
+
+
 if __name__ == '__main__':
-    net.train()
     for epoch in range(1, args.epochs + 1):
-        train_old(epoch)
+        epoch_start_time = time.time()
+        train(epoch)
+        evaluate(validationset)
