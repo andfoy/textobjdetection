@@ -117,7 +117,7 @@ class AnnotationTransformComplete(object):
 
                 bbx = [region.x / width, region.y / height,
                        x_max / width,
-                       y_max / width,
+                       y_max / height,
                        cat]
                 bboxes.append(bbx)
                 phrases.append(corpus.tokenize(region.phrase))
