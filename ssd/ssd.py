@@ -72,6 +72,7 @@ class SSD(nn.Module):
         loc = list()
         conf = list()
 
+        thoughts = None
         if isinstance(x, tuple):
             x, thoughts = x
 
@@ -98,9 +99,13 @@ class SSD(nn.Module):
             loc.append(l(x).permute(0, 2, 3, 1).contiguous())
             conf.append(c(x).permute(0, 2, 3, 1).contiguous())
 
+        if thoughts is not None:
+            loc.append(thoughts)
+            conf.append(thoughts)
+
         loc = torch.cat([o.view(o.size(0), -1) for o in loc], 1)
-        print(loc.size())
-        print(thoughts.size())
+        # print(loc.size())
+        # print(thoughts.size())
         conf = torch.cat([o.view(o.size(0), -1) for o in conf], 1)
         # print(conf.size())
 

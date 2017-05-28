@@ -55,7 +55,7 @@ parser.add_argument('--emsize', type=int, default=200,
                     help='size of word embeddings')
 parser.add_argument('--nhid', type=int, default=200,
                     help='humber of hidden units per layer')
-parser.add_argument('--nlayers', type=int, default=3,
+parser.add_argument('--nlayers', type=int, default=2,
                     help='number of layers')
 parser.add_argument('--dropout', type=float, default=0.2,
                     help='dropout applied to layers (0 = no dropout)')
@@ -65,7 +65,7 @@ parser.add_argument('--num-classes', type=int, default=150,
                     help='number of classification categories')
 parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
-parser.add_argument('--lang-model', type=str, default='model2.pt',
+parser.add_argument('--lang-model', type=str, default='model3.pt',
                     help='location to LSTM parameters file')
 parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
