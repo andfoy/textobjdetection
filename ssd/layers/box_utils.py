@@ -118,7 +118,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
     for j in range(best_prior_idx.size(0)):
         best_truth_idx[best_prior_idx[j]] = j
     matches = truths[best_truth_idx]          # Shape: [num_priors,4]
-    print(matches)
+    print("Abs comparison 2: ", matches.sum(), torch.abs(matches).sum())
     conf = labels[best_truth_idx]             # Shape: [num_priors]
     conf[best_truth_overlap < threshold] = 0  # label as background
     loc = encode(matches, priors, variances)
@@ -147,7 +147,7 @@ def encode(matched, priors, variances):
     # print(g_cxcy.sum())
     # match wh / prior wh
     g_wh = (matched[:, 2:] - matched[:, :2]) / priors[:, 2:]
-    # print("Abs comparison: ", g_wh.sum(), torch.abs(g_wh).sum())
+    print("Abs comparison: ", g_wh.sum(), torch.abs(g_wh).sum())
     # print("Variance: ", variances[1])
     g_wh = torch.log(g_wh) / variances[1]
     # print("After Log: ", g_wh.sum())
