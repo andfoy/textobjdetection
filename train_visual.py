@@ -67,6 +67,8 @@ parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
 parser.add_argument('--lang-model', type=str, default='model2.pt',
                     help='location to LSTM parameters file')
+parser.add_argument('--save', type=str, default='ssd.pt',
+                    help='location to SSD state dict file')
 parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
 parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
@@ -77,7 +79,8 @@ parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
 args = parser.parse_args()
 
 args.cuda = not args.no_cuda and torch.cuda.is_available()
-kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
+kwargs = {'num_workers': args.num_workers,
+          'pin_memory': True} if args.cuda else {}
 
 
 torch.manual_seed(args.seed)
@@ -178,7 +181,12 @@ def weights_init(m):
 
 trainset = DataLoader(trainset, shuffle=True, collate_fn=lambda x:
                       detection_collate(x, lang_model),
-                      batch_size=args.batch_size)
+                      batch_size=args.batch_size, **kwargs)
+
+validationset = DataLoader(validation, shuffle=True, collate_fn=lambda x:
+                           detection_collate(x, lang_model),
+                           batch_size=args.batch_size, **kwargs)
+
 
 print('Initializing weights...')
 # initialize newly added layers' weights with xavier method
@@ -191,7 +199,8 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr,
 criterion = MultiBoxLoss(num_classes, 0.5, True, 0, True, 3, 0.5, False)
 
 
-def train_old(epoch):
+def train(epoch):
+    net.train()
     loc_loss = 0
     conf_loss = 0
     total_loss = 0
@@ -202,7 +211,7 @@ def train_old(epoch):
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
         optimizer.zero_grad()
-        print(thoughts.size())
+        # print(thoughts.size())
         out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
@@ -232,7 +241,50 @@ def train_old(epoch):
             start_time = time.time()
 
 
+def evaluate(data_source):
+    net.eval()
+    total_loss = 0
+    for batch_idx, (imgs, targets, thoughts) in enumerate(data_source):
+        if args.cuda:
+            imgs = Variable(imgs.cuda())
+            targets = [Variable(x.cuda()) for x in targets]
+            thoughts = thoughts.cuda()
+        out = net(imgs)
+        loss_l, loss_c = criterion(out, targets)
+        loss = loss_l + loss_c
+        total_loss += loss.data[0]
+    return total_loss / len(data_source)
+
+
+def adjust_learning_rate(optimizer, gamma, step):
+    """Sets the learning rate to the initial LR decayed
+       by 10 at every specified step
+       Adapted from PyTorch Imagenet example:
+       https://github.com/pytorch/examples/blob/master/imagenet/main.py
+    """
+    lr = args.lr * (gamma ** (step))
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
+
+
 if __name__ == '__main__':
-    net.train()
-    for epoch in range(1, args.epochs + 1):
-        train_old(epoch)
+    best_val_loss = None
+    try:
+        for epoch in range(1, args.epochs + 1):
+            epoch_start_time = time.time()
+            train(epoch)
+            val_loss = evaluate(validationset)
+            print('-' * 89)
+            print('| end of epoch {:3d} | time: {:5.2f}s '
+                  '| valid loss {:.6f} | '.format(
+                      epoch, time.time() - epoch_start_time, val_loss))
+            print('-' * 89)
+            if best_val_loss is None or val_loss < best_val_loss:
+                file_name = osp.join(args.save_folder, args.save) + '.pt'
+                with open(file_name, 'wb') as f:
+                    torch.save(net.state_dict(), f)
+            else:
+                adjust_learning_rate(optimizer, args.gamma, epoch)
+    except KeyboardInterrupt:
+        print('-' * 89)
+        print('Exiting from training early')
