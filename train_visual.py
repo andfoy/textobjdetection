@@ -16,7 +16,7 @@ from ssd.ssd import build_ssd
 from lstm_model import RNNModel
 from ssd.layers.modules import MultiBoxLoss
 
-from ssd.data import BaseTransform
+# from ssd.data import BaseTransform
 from torch.utils.data import DataLoader
 from torchvision import transforms, models
 from visual_genome_loader import (VisualGenomeLoader,
@@ -208,7 +208,7 @@ def train_old(epoch):
         loss.backward()
         optimizer.step()
 
-        # total_loss += loss[0]
+        total_loss += loss.data[0]
         loc_loss += loss_l.data[0]
         conf_loss += loss_c.data[0]
 
@@ -223,7 +223,7 @@ def train_old(epoch):
                   '| ms/batch {:.6f} | total loss {:.6f} '
                   '| loc loss {:.6f} | conf loss: {:.6f}'.format(
                       epoch, batch_idx, len(trainset), elapsed_time * 1000,
-                      cur_loc_loss, cur_loc_loss, cur_conf_loss))
+                      cur_total_loss, cur_loc_loss, cur_conf_loss))
 
             total_loss = 0
             loc_loss = 0
