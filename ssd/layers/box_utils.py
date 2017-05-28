@@ -97,7 +97,7 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
         truths,
         point_form(priors)
     )
-    # print("Abs comparison 1: ", overlaps.sum(), torch.abs(overlaps).sum())
+    print("Abs comparison 1: ", overlaps.sum(), torch.abs(overlaps).sum())
     # print(overlaps.sum())
     # (Bipartite Matching)
     # [1,num_objects] best prior for each ground truth
