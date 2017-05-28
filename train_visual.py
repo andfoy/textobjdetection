@@ -128,6 +128,8 @@ if not osp.exists(args.save_folder):
     os.makedirs(args.save_folder)
 
 net = build_ssd('train', ssd_dim, num_classes)
+if args.cuda:
+    net.cuda()
 
 weights_path = osp.join(args.save_folder, args.save)
 if osp.exists(weights_path):
@@ -156,8 +158,6 @@ else:
 
     net.load_state_dict(state_dict)
 
-if args.cuda:
-    net.cuda()
 
 # net.load_state_dict(state_dict)
 
