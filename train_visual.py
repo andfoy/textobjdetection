@@ -71,6 +71,8 @@ parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
 parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
                     help='pretrained base model')
+parser.add_argument('--save', type=str, default='ssd.pt',
+                    help='location to SSD state dict file')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -185,11 +187,19 @@ validationset = DataLoader(validation, shuffle=True, collate_fn=lambda x:
                            batch_size=args.batch_size)
 
 
-print('Initializing weights...')
-# initialize newly added layers' weights with xavier method
-net.extras.apply(weights_init)
-net.loc.apply(weights_init)
-net.conf.apply(weights_init)
+weights_path = osp.join(args.save_folder, args.save)
+
+if osp.exists(weights_path):
+    print("Loading snapshot...")
+    with open(weights_path, 'rb') as f:
+        state_dict = torch.load(f)
+        net.load_state_dict(state_dict)
+else:
+    print('Initializing weights...')
+    # initialize newly added layers' weights with xavier method
+    net.extras.apply(weights_init)
+    net.loc.apply(weights_init)
+    net.conf.apply(weights_init)
 
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=args.momentum, weight_decay=args.weight_decay)
@@ -207,8 +217,9 @@ def train(epoch):
             imgs = Variable(imgs.cuda())
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
+
         optimizer.zero_grad()
-        print(thoughts.size())
+
         out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
