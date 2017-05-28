@@ -94,6 +94,7 @@ class SSD(nn.Module):
             if k % 2 == 1:
                 sources.append(x)
 
+        print(x.size())
         # apply multibox head to source layers
         for (x, l, c) in zip(sources, self.loc, self.conf):
             loc.append(l(x).permute(0, 2, 3, 1).contiguous())
