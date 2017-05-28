@@ -112,8 +112,11 @@ class AnnotationTransformComplete(object):
                 reg_obj = frozenset({})
             if reg_obj in objects_idx:
                 cat = objects_idx[reg_obj]
-                x_max = min(region.x + region.width, width)
-                y_max = min(region.y + region.height, height)
+                # x_max = min(region.x + region.width, width)
+                # y_max = min(region.y + region.height, height)
+                x_max = region.x + region.width
+                y_max = region.y + region.height
+
 
                 bbx = [region.x / width, region.y / height,
                        x_max / width,
