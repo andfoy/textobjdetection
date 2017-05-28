@@ -99,7 +99,8 @@ class SSD(nn.Module):
             conf.append(c(x).permute(0, 2, 3, 1).contiguous())
 
         loc = torch.cat([o.view(o.size(0), -1) for o in loc], 1)
-        # print(loc.size())
+        print(loc.size())
+        print(thoughts.size())
         conf = torch.cat([o.view(o.size(0), -1) for o in conf], 1)
         # print(conf.size())
 

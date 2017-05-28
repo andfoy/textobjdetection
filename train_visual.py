@@ -20,13 +20,13 @@ from ssd.layers.modules import MultiBoxLoss
 from torch.utils.data import DataLoader
 from torchvision import transforms, models
 from visual_genome_loader import (VisualGenomeLoader,
-                                  AnnotationTransformComplete,
+                                  AnnotationTransform,
                                   ResizeTransform,
                                   detection_collate)
 
 parser = argparse.ArgumentParser(description='Single Shot MultiBox '
                                              'Detector for linguistic object '
-                                             'detection Training')
+                                             'detection training')
 parser.add_argument('--data', type=str, default='../visual_genome',
                     help='path to Visual Genome dataset')
 parser.add_argument('--jaccard-threshold', default=0.5, type=float,
@@ -73,6 +73,8 @@ parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
                     help='pretrained base model')
 parser.add_argument('--save', type=str, default='ssd.pt',
                     help='location to SSD state dict file')
+parser.add_argument('--lang', action='store_true',
+                    help='train SSD model with language features')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -90,6 +92,7 @@ cfg = v2
 num_classes = args.num_classes
 ssd_dim = 300
 batch_size = args.batch_size
+group = not args.lang
 
 print('Loading train data...')
 trainset = VisualGenomeLoader(args.data,
@@ -99,8 +102,9 @@ trainset = VisualGenomeLoader(args.data,
                                   transforms.Normalize(
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
-                              target_transform=AnnotationTransformComplete(),
-                              top=args.num_classes)
+                              target_transform=AnnotationTransform(),
+                              top=args.num_classes,
+                              group=group)
 
 # ssd_dim = 300  # only support 300 now
 # rgb_means = (104, 117, 123)  # only support voc now
@@ -119,9 +123,10 @@ validation = VisualGenomeLoader(args.data,
                                     transforms.Normalize(
                                         mean=[0.485, 0.456, 0.406],
                                         std=[0.229, 0.224, 0.225])]),
-                                target_transform=AnnotationTransformComplete(),
+                                target_transform=AnnotationTransform(),
                                 train=False,
-                                top=args.num_classes)
+                                top=args.num_classes,
+                                group=group)
 
 if not osp.exists(args.save_folder):
     os.makedirs(args.save_folder)
@@ -216,11 +221,15 @@ def train(epoch):
         if args.cuda:
             imgs = Variable(imgs.cuda())
             targets = [Variable(x.cuda()) for x in targets]
-            thoughts = thoughts.cuda()
+            thoughts = Variable(thoughts.cuda())
 
         optimizer.zero_grad()
 
-        out = net(imgs)
+        _in = imgs
+        if args.lang:
+            _in = (imgs, thoughts)
+
+        out = net(_in)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
         loss.backward()
@@ -256,8 +265,11 @@ def evaluate(data_source):
         if args.cuda:
             imgs = Variable(imgs.cuda())
             targets = [Variable(x.cuda()) for x in targets]
-            thoughts = thoughts.cuda()
-        out = net(imgs)
+            thoughts = Variable(thoughts.cuda())
+        _in = imgs
+        if args.lang:
+            _in = (imgs, thoughts)
+        out = net(_in)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
         total_loss += loss.data[0]

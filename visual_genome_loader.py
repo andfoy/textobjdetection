@@ -98,7 +98,7 @@ class Corpus(object):
         return torch.LongTensor(tokens)
 
 
-class AnnotationTransformComplete(object):
+class AnnotationTransform(object):
     def __call__(self, regions, corpus, region_objects,
                  objects_idx, height, width):
         phrases = []
@@ -117,7 +117,6 @@ class AnnotationTransformComplete(object):
                 x_max = region.x + region.width
                 y_max = region.y + region.height
 
-
                 bbx = [region.x / width, region.y / height,
                        x_max / width,
                        y_max / height,
@@ -134,30 +133,6 @@ class ResizeTransform(object):
 
     def __call__(self, img):
         return img.resize(self.size, self.interpolation)
-
-
-class AnnotationTransform(object):
-    def __call__(self, region, corpus, region_objects,
-                 objects_idx, height, width):
-        # phrases = []
-        bboxes = []
-        phrase = None
-        # for region in regions:
-        try:
-            reg_obj = region_objects[region.image.id][region.id]
-            reg_obj = frozenset([x.lower()
-                                 for x in reg_obj])
-        except KeyError:
-            reg_obj = frozenset({})
-        if reg_obj in objects_idx:
-            cat = objects_idx[reg_obj]
-            bbx = [region.x / width, region.y / height,
-                   (region.x + region.width) / width,
-                   (region.y + region.height) / height,
-                   cat]
-            bboxes.append(bbx)
-            phrase = corpus.tokenize(region.phrase)
-        return bboxes, phrase
 
 
 class VisualGenomeLoader(data.Dataset):
@@ -178,12 +153,13 @@ class VisualGenomeLoader(data.Dataset):
                            'girls', 'pedestrian', 'passenger'})
 
     def __init__(self, root, transform=None, target_transform=None,
-                 train=True, test=False, top=100):
+                 train=True, test=False, top=100, group=True):
         self.root = root
         self.transform = transform
         self.target_transform = target_transform
         self.top_objects = top
         self.top_folder = 'top_{0}'.format(top)
+        self.group = group
 
         if not osp.exists(self.root):
             raise RuntimeError('Dataset not found ' +
@@ -199,17 +175,20 @@ class VisualGenomeLoader(data.Dataset):
             train_file = osp.join(self.data_path, self.top_folder,
                                   self.region_train_file)
             with open(train_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
         elif test:
             test_file = osp.join(self.data_path, self.top_folder,
                                  self.region_test_file)
             with open(test_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
         else:
             val_file = osp.join(self.data_path, self.top_folder,
                                 self.region_val_file)
             with open(val_file, 'rb') as f:
-                self.regions = self.__group_regions_by_id(torch.load(f))
+                self.regions = torch.load(f)
+
+        if self.group:
+            self.regions = self.__group_regions_by_id(self.regions)
 
         corpus_file = osp.join(self.data_path, self.processed_folder,
                                self.corpus_file)
@@ -441,7 +420,10 @@ class VisualGenomeLoader(data.Dataset):
 
     def pull_image(self, idx):
         regions = self.regions[idx]
-        image_info = regions[0].image
+        if self.group:
+            image_info = regions[0].image
+        else:
+            image_info = regions.image
         image_path = image_info.url.split('/')[-2:]
         image_path = osp.join(self.root, *image_path)
         return cv2.imread(image_path, cv2.IMREAD_COLOR)
@@ -450,6 +432,10 @@ class VisualGenomeLoader(data.Dataset):
         regions = self.regions[idx]
         bboxes = []
         phrases = []
+
+        if not self.group:
+            regions = [regions]
+
         for region in regions:
             bbx = [region.x, region.y,
                    (region.x + region.width),
@@ -462,19 +448,16 @@ class VisualGenomeLoader(data.Dataset):
         return len(self.regions)
 
     def __getitem__(self, idx):
-        # region = self.regions[idx]
         regions = self.regions[idx]
-        image_info = regions[0].image
-        # image_info = region.image
+        if not self.group:
+            regions = [regions]
 
-        # if image_info.id not in self.cache:
+        image_info = regions[0].image
+
         image_path = image_info.url.split('/')[-2:]
         image_path = osp.join(self.root, *image_path)
-        # img = cv2.imread(image_path, cv2.IMREAD_COLOR)
-        img = Image.open(image_path).convert('RGB')
-        # self.cache[image_info.id] = img
 
-        # img = self.cache[image_info.id]
+        img = Image.open(image_path).convert('RGB')
         img = self.transform(img)
 
         bboxes, phrases = self.target_transform(regions,
@@ -483,117 +466,4 @@ class VisualGenomeLoader(data.Dataset):
                                                 self.obj_idx,
                                                 image_info.height,
                                                 image_info.width)
-        # phrase = self.corpus.tokenize(region.phrase)
-        # target = torch.LongTensor([region.x, region.y,
-        # region.width, region.height])
-        # return img, phrase, target
         return idx, img, bboxes, phrases
-
-
-class VisualGenomeLoaderFull(data.Dataset):
-    data_path = 'data'
-    processed_folder = 'processed'
-    corpus_filename = 'corpus.pt'
-    region_file = 'region_descriptions.pt'
-
-    def __init__(self, root, transform=None, target_transform=None,
-                 train=False, test=False):
-        self.root = root
-        self.transform = transform
-        # self.cache = {}
-
-        if not osp.exists(self.root):
-            raise RuntimeError('Dataset not found ' +
-                               'please download it from: ' +
-                               'http://visualgenome.org/api/v0/api_home.html')
-
-        if not self.__check_exists():
-            self.process_dataset()
-
-        region_path = osp.join(self.data_path, self.processed_folder,
-                               self.region_file)
-
-        corpus_file = osp.join(self.data_path, self.processed_folder,
-                               self.corpus_filename)
-
-        with open(region_path, 'rb') as f:
-            self.region_descriptions = torch.load(f)
-
-        with open(corpus_file, 'rb') as f:
-            self.corpus = torch.load(f)
-
-        # region_descriptions = vg.get_all_region_descriptions(
-        #     data_dir=self.root)
-
-    def __check_exists(self):
-        processed_path = osp.join(self.data_path, self.processed_folder)
-        return osp.exists(processed_path)
-
-    def process_dataset(self):
-        # print('Processing scene graphs...')
-        # vg.add_attrs_to_scene_graphs(self.root)
-        # vg.save_scene_graphs_by_id(data_dir=self.root,
-        # image_data_dir=self.graph_path)
-        # print('Done!')
-
-        try:
-            os.makedirs(os.path.join(self.data_path, self.processed_folder))
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
-        print("Processing region descriptions...")
-        region_descriptions_full = vg.get_all_region_descriptions(
-            data_dir=self.root)
-
-        region_descriptions = []
-        for region in region_descriptions_full:
-            region_descriptions += region
-
-        del region_descriptions_full
-        region_path = osp.join(self.data_path, self.processed_folder,
-                               self.region_file)
-
-        with open(region_path, 'wb') as f:
-            torch.save(region_descriptions, f)
-
-        print("Generating text corpus...")
-        corpus = Corpus()
-        for i, region in enumerate(region_descriptions):
-            print("Processing region: {0}".format(i))
-            corpus.add_to_corpus(region.phrase)
-            # for region in image_regions:
-
-        corpus.dictionary.add_word('<unk>')
-
-        corpus_file = osp.join(self.data_path, self.processed_folder,
-                               self.corpus_filename)
-
-        print("Saving corpus...")
-        with open(corpus_file, 'wb') as f:
-            torch.save(corpus, f)
-
-        print("Done!")
-
-    def __len__(self):
-        return len(self.region_descriptions)
-
-    def __getitem__(self, idx):
-        region = self.region_descriptions[idx]
-        image_info = region.image
-
-        # if image_info.id not in self.cache:
-        image_path = image_info.url.split('/')[-2:]
-        image_path = osp.join(self.root, *image_path)
-        img = Image.open(image_path).convert('RGB')
-        # self.cache[image_info.id] = img
-
-        # img = self.cache[image_info.id]
-        img = self.transform(img)
-
-        phrase = self.corpus.tokenize(region.phrase)
-        target = torch.LongTensor([region.x, region.y,
-                                   region.width, region.height])
-        return img, phrase, target
