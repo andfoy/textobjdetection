@@ -112,8 +112,8 @@ class AnnotationTransformComplete(object):
                 reg_obj = frozenset({})
             if reg_obj in objects_idx:
                 cat = objects_idx[reg_obj]
-                x_max = min(region.x + region.width, region.width)
-                y_max = min(region.y + region.height, region.height)
+                x_max = min(region.x + region.width, width)
+                y_max = min(region.y + region.height, height)
 
                 bbx = [region.x / width, region.y / height,
                        x_max / width,
@@ -150,7 +150,7 @@ class AnnotationTransform(object):
             cat = objects_idx[reg_obj]
             bbx = [region.x / width, region.y / height,
                    (region.x + region.width) / width,
-                   (region.y + region.height) / width,
+                   (region.y + region.height) / height,
                    cat]
             bboxes.append(bbx)
             phrase = corpus.tokenize(region.phrase)
