@@ -90,11 +90,12 @@ def match(threshold, truths, priors, variances, labels, loc_t, conf_t, idx):
         The matched indices corresponding to 1)location and 2)confidence preds.
     """
     # jaccard index
+    print(truths)
     overlaps = jaccard(
         truths,
         point_form(priors)
     )
-    print("Abs comparison 1: ", overlaps.sum(), torch.abs(overlaps).sum())
+    # print("Abs comparison 1: ", overlaps.sum(), torch.abs(overlaps).sum())
     # print(overlaps.sum())
     # (Bipartite Matching)
     # [1,num_objects] best prior for each ground truth
@@ -139,7 +140,7 @@ def encode(matched, priors, variances):
     # print(g_cxcy.sum())
     # match wh / prior wh
     g_wh = (matched[:, 2:] - matched[:, :2]) / priors[:, 2:]
-    print("Abs comparison: ", g_wh.sum(), torch.abs(g_wh).sum())
+    # print("Abs comparison: ", g_wh.sum(), torch.abs(g_wh).sum())
     # print("Variance: ", variances[1])
     g_wh = torch.log(g_wh) / variances[1]
     # print("After Log: ", g_wh.sum())
