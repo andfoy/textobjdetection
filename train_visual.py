@@ -202,6 +202,7 @@ def train_old(epoch):
             targets = [Variable(x.cuda()) for x in targets]
             thoughts = thoughts.cuda()
         optimizer.zero_grad()
+        print(thoughts.size())
         out = net(imgs)
         loss_l, loss_c = criterion(out, targets)
         loss = loss_l + loss_c
