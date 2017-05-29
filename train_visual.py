@@ -69,6 +69,8 @@ parser.add_argument('--lang-model', type=str, default='model3.pt',
                     help='location to LSTM parameters file')
 parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
+parser.add_argument('--backup-iters', type=int, default=1000,
+                    help='iteration interval to perform state backups')
 parser.add_argument('--basenet', default='vgg16_reducedfc.pth',
                     help='pretrained base model')
 parser.add_argument('--save', type=str, default='ssd.pt',
@@ -238,6 +240,11 @@ def train(epoch):
         total_loss += loss.data[0]
         loc_loss += loss_l.data[0]
         conf_loss += loss_c.data[0]
+
+        if batch_idx % args.backup_iters == 0:
+            backup_file = osp.join(args.save_folder, 'temp_' + args.save)
+            with open(backup_file, 'wb') as f:
+                torch.save(net.state_dict(), f)
 
         if batch_idx % args.log_interval == 0:
             elapsed_time = time.time() - start_time

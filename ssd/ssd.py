@@ -94,22 +94,17 @@ class SSD(nn.Module):
             if k % 2 == 1:
                 sources.append(x)
 
-        # print(x.size())
-        sources.append(thoughts)
+        # clamp language vector into model
+        if thoughts is not None:
+            sources.append(thoughts)
+
         # apply multibox head to source layers
         for (x, l, c) in zip(sources, self.loc, self.conf):
             loc.append(l(x).permute(0, 2, 3, 1).contiguous())
             conf.append(c(x).permute(0, 2, 3, 1).contiguous())
 
-        # if thoughts is not None:
-            # loc.append(thoughts)
-            # conf.append(thoughts)
-
         loc = torch.cat([o.view(o.size(0), -1) for o in loc], 1)
-        # print(loc.size())
-        # print(thoughts.size())
         conf = torch.cat([o.view(o.size(0), -1) for o in conf], 1)
-        # print(conf.size())
 
         if self.phase == "test":
             output = self.detect(
