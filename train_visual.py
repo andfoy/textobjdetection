@@ -307,7 +307,7 @@ if __name__ == '__main__':
                       epoch, time.time() - epoch_start_time, val_loss))
             print('-' * 89)
             if best_val_loss is None or val_loss < best_val_loss:
-                file_name = osp.join(args.save_folder, args.save) + '.pt'
+                file_name = osp.join(args.save_folder, args.save)
                 with open(file_name, 'wb') as f:
                     torch.save(net.state_dict(), f)
             else:
