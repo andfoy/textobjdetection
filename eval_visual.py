@@ -110,7 +110,7 @@ if args.cuda:
 cfg = v2
 num_classes = args.num_classes
 ssd_dim = 300
-batch_size = args.batch_size
+# batch_size = args.batch_size
 group = not args.lang
 set_type = 'test'
 
