@@ -489,7 +489,7 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
         scale = torch.Tensor([im.shape[1], im.shape[0],
                               im.shape[1], im.shape[0]])
         img_id, img, bboxes, phrases = dataset[i]
-        x, targets, thoughts = transform([(img, bboxes, phrases)])
+        x, targets, thoughts = transform([(img_id, img, bboxes, phrases)])
 
         if args.cuda:
             x = x.cuda()
