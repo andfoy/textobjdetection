@@ -492,8 +492,8 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
         x, targets, thoughts = transform([(img_id, img, bboxes, phrases)])
 
         if args.cuda:
-            x = x.cuda()
-            thoughts = thoughts.cuda()
+            x = Variable(x.cuda())
+            thoughts = Variable(thoughts.cuda())
         _t['im_detect'].tic()
 
         # if args.lang:
