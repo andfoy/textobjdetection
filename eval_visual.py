@@ -59,6 +59,8 @@ from visual_genome_loader import (VisualGenomeLoader,
 
 parser = argparse.ArgumentParser(description='Linguistic Single Shot MultiBox'
                                              ' Detection')
+parser.add_argument('--data', type=str, default='../visual_genome',
+                    help='path to Visual Genome dataset')
 parser.add_argument('--trained_model', default='weights/ssd_lang.pt',
                     type=str, help='Trained state_dict file path to open')
 parser.add_argument('--save_folder', default='eval/', type=str,
@@ -90,6 +92,7 @@ parser.add_argument('--lang-model', type=str, default='model3.pt',
                     help='location to LSTM parameters file')
 parser.add_argument('--lang', action='store_true',
                     help='test SSD model with language features')
+
 
 args = parser.parse_args()
 
@@ -307,7 +310,7 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
                    (BBGT[:, 3] - BBGT[:, 1]) - inters)
             overlaps = inters / uni
             ovmax = np.max(overlaps)
-            jmax = np.argmax(overlaps)
+            # jmax = np.argmax(overlaps)
 
         if ovmax > ovthresh:
             tp[d] = 1.
@@ -322,7 +325,6 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
     prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
     ap = voc_ap(rec, prec, use_07_metric)
     return rec, prec, ap
-
 
 
 def voc_eval(detpath,
