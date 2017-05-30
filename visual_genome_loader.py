@@ -205,6 +205,8 @@ class VisualGenomeLoader(data.Dataset):
 
         with open(obj_idx_path, 'rb') as f:
             self.obj_idx = torch.load(f)
+
+        self.idx_obj = {v: k for k, v in self.obj_idx.items()}
         # del region_objects
 
     def __load_region_objects(self):
@@ -387,6 +389,36 @@ class VisualGenomeLoader(data.Dataset):
 
         print("Done!")
 
+    def group_class_img_bbx(self):
+        class_img_bbx = {}
+        regions = self.regions
+        if self.group:
+            regions = []
+            for img_regions in self.regions:
+                regions += img_regions
+            # regions = self.__group_regions_by_id(self.regions)
+        for region in regions:
+            try:
+                reg_obj = self.region_objects[region.image.id][region.id]
+                reg_obj = frozenset([x.lower()
+                                     for x in reg_obj])
+            except KeyError:
+                reg_obj = frozenset({})
+            if reg_obj in self.obj_idx:
+                cat = self.obj_idx[reg_obj]
+                if cat not in class_img_bbx:
+                    class_img_bbx[cat] = {}
+                if region.image.id not in class_img_bbx[cat]:
+                    class_img_bbx[cat][region.image.id] = []
+                x_max = region.x + region.width
+                y_max = region.y + region.height
+
+                bbx = [region.x, region.y,
+                       x_max,
+                       y_max]
+                class_img_bbx[cat][region.image.id].append(bbx)
+        return class_img_bbx
+
     def get_top_images(self):
         obj_file_path = osp.join(self.root, 'objects.json')
         objects = json.load(open(obj_file_path, 'r'))
@@ -466,4 +498,4 @@ class VisualGenomeLoader(data.Dataset):
                                                 self.obj_idx,
                                                 image_info.height,
                                                 image_info.width)
-        return idx, img, bboxes, phrases
+        return image_info.id, img, bboxes, phrases
