@@ -1,4 +1,4 @@
-# instanceobjseg
+# textobjdetection
 Code for the Human-related Object Detection based on Natural Language Parsing of Image
 Query Expressions article
 
