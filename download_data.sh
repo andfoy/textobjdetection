@@ -15,7 +15,7 @@ if [ ! -d $DATA_FOLDER ]; then
     cd ..
 fi
 
-if [! -d $VISUAL_GENOME ]; then
+if [ ! -d $VISUAL_GENOME ]; then
     printf "\nDownloading Visual Genome dataset (This may take a while...)"
     mkdir $VISUAL_GENOME
     cd $VISUAL_GENOME
