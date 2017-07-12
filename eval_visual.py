@@ -495,7 +495,7 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
 
         for j in range(thoughts.size(0)):
             thought = thoughts[j].view(1, -1, 1)
-            if args.cuda():
+            if args.cuda:
                 thought = Variable(thought.cuda())
             _t['im_detect'].tic()
 
