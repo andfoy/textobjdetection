@@ -478,12 +478,20 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
     # for _ in range(len(labelmap)+1)]
 
     all_boxes = {}
+    im_start = 0
     # timers
     _t = {'im_detect': Timer(), 'misc': Timer()}
+    state = {'img_num': 0, 'all_boxes': all_boxes}
     output_dir = get_output_dir('ssd300_lang', set_type)
     det_file = os.path.join(output_dir, 'detections.pkl')
 
-    for i in range(num_images):
+    if osp.exists(det_file):
+        print("Loading snapshot...")
+        state = torch.load(det_file)
+        all_boxes = state['all_boxes']
+        im_start = state['img_num'] + 1
+
+    for i in range(im_start, num_images):
         im = dataset.pull_image(i)
         scale = torch.Tensor([im.shape[1], im.shape[0],
                               im.shape[1], im.shape[0]])
@@ -526,11 +534,21 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
             #     all_boxes[text_class][img_id] = []
             all_boxes[text_class][img_id] = cls_dets
 
+        if i % 10 == 0:
+            print('Saving snapshot...')
+            state = {'img_num': i, 'all_boxes': all_boxes}
+            with open(det_file, 'wb') as fp:
+                torch.save(state, fp)
+
         print('im_detect: {:d}/{:d} {:.3f}s'.format(i + 1,
                                                     num_images, detect_time))
 
-    with open(det_file, 'wb') as f:
-        pickle.dump(all_boxes, f, pickle.HIGHEST_PROTOCOL)
+    # with open(det_file, 'wb') as f:
+        # pickle.dump(all_boxes, f, pickle.HIGHEST_PROTOCOL)
+    if im_start != num_images:
+        state = {'img_num': num_images, 'all_boxes': all_boxes}
+        with open(det_file, 'wb') as fp:
+            torch.save(state, fp)
 
     print('Evaluating detections')
     evaluate_detections(all_boxes, output_dir, dataset)
