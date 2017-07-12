@@ -492,35 +492,39 @@ def test_net_lang(save_folder, net, cuda, dataset, transform, top_k,
 
         if args.cuda:
             x = Variable(x.cuda())
-            thoughts = Variable(thoughts.cuda())
-        _t['im_detect'].tic()
 
-        # if args.lang:
-        x = (x, thoughts)
-        detections = net(x).data
-        detect_time = _t['im_detect'].toc(average=False)
+        for j in range(thoughts.size(0)):
+            thought = thoughts[j].view(1, -1, 1)
+            if args.cuda():
+                thought = Variable(thought.cuda())
+            _t['im_detect'].tic()
 
-        det_class = bboxes[0][-1]
+            # if args.lang:
+            x = (x, thought)
+            detections = net(x).data
+            detect_time = _t['im_detect'].toc(average=False)
 
-        # skip j = 0, because it's the background class
-        # for j in range(0, detections.size(1)):
-        dets = detections[0, det_class, :]
-        mask = dets[:, 0].gt(0.).expand(5, dets.size(0)).t()
-        dets = torch.masked_select(dets, mask).view(-1, 5)
-        if dets.dim() == 0:
-            continue
-        boxes = dets[:, 1:]
-        scores = dets[:, 0].cpu().numpy()
-        boxes *= scale.unsqueeze(0).expand_as(boxes)
-        cls_dets = np.hstack((boxes.cpu().numpy(),
-                              scores[:, np.newaxis])) \
-            .astype(np.float32, copy=False)
-        text_class = dataset.idx_obj[det_class]
-        if text_class not in all_boxes:
-            all_boxes[text_class] = {}
-        # if img_id not in all_boxes[text_class]:
-        #     all_boxes[text_class][img_id] = []
-        all_boxes[text_class][img_id] = cls_dets
+            det_class = bboxes[j][-1]
+
+            # skip j = 0, because it's the background class
+            # for j in range(0, detections.size(1)):
+            dets = detections[0, det_class, :]
+            mask = dets[:, 0].gt(0.).expand(5, dets.size(0)).t()
+            dets = torch.masked_select(dets, mask).view(-1, 5)
+            if dets.dim() == 0:
+                continue
+            boxes = dets[:, 1:]
+            scores = dets[:, 0].cpu().numpy()
+            boxes *= scale.unsqueeze(0).expand_as(boxes)
+            cls_dets = np.hstack((boxes.cpu().numpy(),
+                                  scores[:, np.newaxis])) \
+                .astype(np.float32, copy=False)
+            text_class = dataset.idx_obj[det_class]
+            if text_class not in all_boxes:
+                all_boxes[text_class] = {}
+            # if img_id not in all_boxes[text_class]:
+            #     all_boxes[text_class][img_id] = []
+            all_boxes[text_class][img_id] = cls_dets
 
         print('im_detect: {:d}/{:d} {:.3f}s'.format(i + 1,
                                                     num_images, detect_time))
