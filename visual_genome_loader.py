@@ -1,6 +1,5 @@
 
 import os
-import cv2
 import json
 import torch
 import errno
@@ -458,7 +457,7 @@ class VisualGenomeLoader(data.Dataset):
             image_info = regions.image
         image_path = image_info.url.split('/')[-2:]
         image_path = osp.join(self.root, *image_path)
-        return cv2.imread(image_path, cv2.IMREAD_COLOR)
+        return np.array(Image.open(image_path).convert('RGB'))
 
     def pull_anno(self, idx):
         regions = self.regions[idx]

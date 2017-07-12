@@ -31,7 +31,6 @@ from __future__ import print_function
 #     import xml.etree.ElementTree as ET
 
 import os
-import cv2
 import time
 import torch
 import pickle
