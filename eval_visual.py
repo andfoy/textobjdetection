@@ -559,6 +559,7 @@ if __name__ == '__main__':
                                          std=[0.229, 0.224, 0.225])]),
                                  target_transform=AnnotationTransform(),
                                  test=True,
+                                 train=False,
                                  top=args.num_classes,
                                  group=group)
     print('Loading RNN model...')
