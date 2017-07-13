@@ -281,12 +281,12 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
     nd = len(ground_truth_list)
     tp = [] # np.zeros(nd)
     fp = [] # np.zeros(nd)
-    for img_id in enumerate(ground_truth_list):
+    for img_id in ground_truth_list:
         BBGT = np.array(ground_truth_list[img_id])
-        print(BBGT)
+        # print(BBGT)
         pred_info = np.array(class_box_list[img_id])
         BB = pred_info[:, :-1]
-        print(BB)
+        # print(BB)
         confidence = pred_info[:, -1]
 
         sorted_ind = np.argsort(-confidence)
