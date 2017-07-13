@@ -284,7 +284,12 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
     for img_id in ground_truth_list:
         BBGT = np.array(ground_truth_list[img_id])
         # print(BBGT)
-        pred_info = np.array(class_box_list[img_id])
+        try:
+            pred_info = np.array(class_box_list[img_id])
+        except KeyError:
+            tp.append(-1)
+            fp.append(-1)
+            continue
         BB = pred_info[:, :-1]
         # print(BB)
         confidence = pred_info[:, -1]
