@@ -293,36 +293,36 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
         BB = BB[sorted_ind, :]
         if BBGT.size > 0:
             for k in range(0, BB.shape[0]):
-            # compute overlaps
-            # intersection
-            bb = BB[k, :]
-            # print(BBGT[:, 0])
-            # print(bb[0])
-            ixmin = np.maximum(BBGT[:, 0], bb[0])
-            iymin = np.maximum(BBGT[:, 1], bb[1])
-            ixmax = np.minimum(BBGT[:, 2], bb[2])
-            iymax = np.minimum(BBGT[:, 3], bb[3])
-            iw = np.maximum(ixmax - ixmin, 0.)
-            ih = np.maximum(iymax - iymin, 0.)
-            inters = iw * ih
+                # compute overlaps
+                # intersection
+                bb = BB[k, :]
+                # print(BBGT[:, 0])
+                # print(bb[0])
+                ixmin = np.maximum(BBGT[:, 0], bb[0])
+                iymin = np.maximum(BBGT[:, 1], bb[1])
+                ixmax = np.minimum(BBGT[:, 2], bb[2])
+                iymax = np.minimum(BBGT[:, 3], bb[3])
+                iw = np.maximum(ixmax - ixmin, 0.)
+                ih = np.maximum(iymax - iymin, 0.)
+                inters = iw * ih
 
-            # # union
-            # uni = ((bb[2] - bb[0] + 1.) * (bb[3] - bb[1] + 1.) +
-            #        (BBGT[:, 2] - BBGT[:, 0] + 1.) *
-            #        (BBGT[:, 3] - BBGT[:, 1] + 1.) - inters)
-            uni = ((bb[2] - bb[0]) * (bb[3] - bb[1]) +
-                   (BBGT[:, 2] - BBGT[:, 0]) *
-                   (BBGT[:, 3] - BBGT[:, 1]) - inters)
-            overlaps = inters / uni
-            ovmax = np.max(overlaps)
-            # jmax = np.argmax(overlaps)
+                # # union
+                # uni = ((bb[2] - bb[0] + 1.) * (bb[3] - bb[1] + 1.) +
+                #        (BBGT[:, 2] - BBGT[:, 0] + 1.) *
+                #        (BBGT[:, 3] - BBGT[:, 1] + 1.) - inters)
+                uni = ((bb[2] - bb[0]) * (bb[3] - bb[1]) +
+                       (BBGT[:, 2] - BBGT[:, 0]) *
+                       (BBGT[:, 3] - BBGT[:, 1]) - inters)
+                overlaps = inters / uni
+                ovmax = np.max(overlaps)
+                # jmax = np.argmax(overlaps)
 
-            if ovmax > ovthresh:
-                # tp[d] = 1.
-                tp.append(1)
-            else:
-                # fp[d] = 1.
-                fp.append(1)
+                if ovmax > ovthresh:
+                    # tp[d] = 1.
+                    tp.append(1)
+                else:
+                    # fp[d] = 1.
+                    fp.append(1)
     # compute precision recall
     fp = np.array(fp)
     tp = np.array(tp)
