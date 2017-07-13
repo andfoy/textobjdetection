@@ -320,9 +320,11 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
                 if ovmax > ovthresh:
                     # tp[d] = 1.
                     tp.append(1)
+                    fp.append(0)
                 else:
                     # fp[d] = 1.
                     fp.append(1)
+                    tp.append(0)
     # compute precision recall
     fp = np.array(fp)
     tp = np.array(tp)
