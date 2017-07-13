@@ -279,21 +279,25 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
     # confidence = complete_info[:, -1]
     # BB
     nd = len(ground_truth_list)
-    tp = np.zeros(nd)
-    fp = np.zeros(nd)
-    for d, img_id in enumerate(ground_truth_list):
+    tp = [] # np.zeros(nd)
+    fp = [] # np.zeros(nd)
+    for img_id in enumerate(ground_truth_list):
         BBGT = np.array(ground_truth_list[img_id])
+        print(BBGT)
         pred_info = np.array(class_box_list[img_id])
         BB = pred_info[:, :-1]
+        print(BB)
         confidence = pred_info[:, -1]
 
         sorted_ind = np.argsort(-confidence)
-        bb = BB[sorted_ind, :]
+        BB = BB[sorted_ind, :]
         if BBGT.size > 0:
+            for k in range(0, BB.shape[0]):
             # compute overlaps
             # intersection
-            print(BBGT[:, 0])
-            print(bb[0])
+            bb = BB[k, :]
+            # print(BBGT[:, 0])
+            # print(bb[0])
             ixmin = np.maximum(BBGT[:, 0], bb[0])
             iymin = np.maximum(BBGT[:, 1], bb[1])
             ixmax = np.minimum(BBGT[:, 2], bb[2])
@@ -313,11 +317,15 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
             ovmax = np.max(overlaps)
             # jmax = np.argmax(overlaps)
 
-        if ovmax > ovthresh:
-            tp[d] = 1.
-        else:
-            fp[d] = 1.
+            if ovmax > ovthresh:
+                # tp[d] = 1.
+                tp.append(1)
+            else:
+                # fp[d] = 1.
+                fp.append(1)
     # compute precision recall
+    fp = np.array(fp)
+    tp = np.array(tp)
     fp = np.cumsum(fp)
     tp = np.cumsum(tp)
     rec = tp / float(len(ground_truth_list))
