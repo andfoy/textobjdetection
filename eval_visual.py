@@ -292,6 +292,8 @@ def vg_eval(class_box_list, ground_truth_list, ovthresh=0.5,
         if BBGT.size > 0:
             # compute overlaps
             # intersection
+            print(BBGT[:, 0])
+            print(bb[0])
             ixmin = np.maximum(BBGT[:, 0], bb[0])
             iymin = np.maximum(BBGT[:, 1], bb[1])
             ixmax = np.minimum(BBGT[:, 2], bb[2])
