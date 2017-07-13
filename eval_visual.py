@@ -219,7 +219,7 @@ def do_python_eval(box_list, dataset, output_dir='output', use_07=True):
             rec, prec, ap = vg_eval(box_list[cls], ground_truth_list[cls])
         aps += [ap]
         print('AP for {} = {:.4f}'.format(cls, ap))
-        with open(os.path.join(output_dir, cls + '_pr.pkl'), 'wb') as f:
+        with open(os.path.join(output_dir, '_'.join(list(cls)) + '_pr.pkl'), 'wb') as f:
             pickle.dump({'rec': rec, 'prec': prec, 'ap': ap}, f)
     print('Mean AP = {:.4f}'.format(np.mean(aps)))
     print('~~~~~~~~')
