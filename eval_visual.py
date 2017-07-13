@@ -216,7 +216,7 @@ def do_python_eval(box_list, dataset, output_dir='output', use_07=True):
         if cls not in box_list:
             rec, prec, ap = -1, -1, -1
         else:
-            rec, prec, ap = vg_eval(box_list[cls], ground_truth_list[cls])
+            rec, prec, ap = vg_eval(box_list[cls], ground_truth_list[dataset.obj_idx[cls]])
         aps += [ap]
         print('AP for {} = {:.4f}'.format(cls, ap))
         with open(os.path.join(output_dir, '_'.join(list(cls)) + '_pr.pkl'), 'wb') as f:
