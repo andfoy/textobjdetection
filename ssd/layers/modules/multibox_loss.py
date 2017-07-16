@@ -112,8 +112,10 @@ class MultiBoxLoss(nn.Module):
         loss_c = F.cross_entropy(conf_p, targets_weighted, size_average=False)
 
         # Sum of losses: L(x,c,l,g) = (Lconf(x, c) + αLloc(x,l,g)) / N
-
-        N = num_pos.data.sum()
+        try:
+            N = num_pos.data.sum()
+        except RuntimeError:
+            print(num_pos.size())
         loss_l /= N
         loss_c /= N
         return loss_l, loss_c
