@@ -3,8 +3,8 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from torch.autograd import Function
 from torch.autograd import Variable
-from ..box_utils import decode, nms
-from data import v2 as cfg
+from ssd.layers.box_utils import decode, nms
+from ssd import v2 as cfg
 
 
 class Detect(Function):

@@ -2,8 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-from layers import *
-from ssd import v2
+from ssd.layers import *
+from ssd import v2, v1
+import torchvision.transforms as transforms
+import torchvision.models as models
+import torch.backends.cudnn as cudnn
 import os
 
 
@@ -121,9 +124,7 @@ class SSD(nn.Module):
         other, ext = os.path.splitext(base_file)
         if ext == '.pkl' or '.pth':
             print('Loading weights into state dict...')
-            self.load_state_dict(
-                torch.load(base_file,
-                           map_location=lambda storage, _: storage))
+            self.load_state_dict(torch.load(base_file))
             print('Finished!')
         else:
             print('Sorry only .pth and .pkl files supported.')
@@ -180,13 +181,12 @@ def multibox(vgg, extra_layers, cfg, num_classes):
         loc_layers += [nn.Conv2d(vgg[v].out_channels,
                                  cfg[k] * 4, kernel_size=3, padding=1)]
         conf_layers += [nn.Conv2d(vgg[v].out_channels,
-                                  cfg[k] * num_classes,
-                                  kernel_size=3, padding=1)]
+                        cfg[k] * num_classes, kernel_size=3, padding=1)]
     for k, v in enumerate(extra_layers[1::2], 2):
         loc_layers += [nn.Conv2d(v.out_channels, cfg[k] * 4,
-                                 kernel_size=3, padding=1)]
+                       kernel_size=3, padding=1)]
         conf_layers += [nn.Conv2d(v.out_channels, cfg[k] * num_classes,
-                                  kernel_size=3, padding=1)]
+                        kernel_size=3, padding=1)]
     return vgg, extra_layers, (loc_layers, conf_layers)
 
 

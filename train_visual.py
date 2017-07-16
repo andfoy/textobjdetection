@@ -15,6 +15,7 @@ from ssd import v2
 from ssd.ssd import build_ssd
 from lstm_model import RNNModel
 from ssd.layers.modules import MultiBoxLoss
+from ssd.utils.augmentations import SSDAugmentation
 
 # from ssd.data import BaseTransform
 from torch.utils.data import DataLoader
@@ -98,13 +99,14 @@ group = not args.lang
 
 print('Loading train data...')
 trainset = VisualGenomeLoader(args.data,
-                              transform=transforms.Compose([
+                              additional_transform=transforms.Compose([
                                   ResizeTransform((300, 300)),
                                   transforms.ToTensor(),
                                   transforms.Normalize(
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
                               target_transform=AnnotationTransform(),
+                              transform=SSDAugmentation(),
                               top=args.num_classes,
                               group=group)
 
@@ -119,7 +121,7 @@ trainset = VisualGenomeLoader(args.data,
 
 print('Loading validation data...')
 validation = VisualGenomeLoader(args.data,
-                                transform=transforms.Compose([
+                                additional_transform=transforms.Compose([
                                     ResizeTransform((300, 300)),
                                     transforms.ToTensor(),
                                     transforms.Normalize(

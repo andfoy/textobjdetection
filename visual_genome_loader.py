@@ -1,5 +1,6 @@
 
 import os
+import cv2
 import json
 import torch
 import errno
@@ -152,9 +153,11 @@ class VisualGenomeLoader(data.Dataset):
                            'girls', 'pedestrian', 'passenger'})
 
     def __init__(self, root, transform=None, target_transform=None,
-                 train=True, test=False, top=100, group=True):
+                 train=True, test=False, top=100, group=True,
+                 additional_transform=None):
         self.root = root
         self.transform = transform
+        self.additional_transform = additional_transform
         self.target_transform = target_transform
         self.top_objects = top
         self.top_folder = 'top_{0}'.format(top)
@@ -488,8 +491,8 @@ class VisualGenomeLoader(data.Dataset):
         image_path = image_info.url.split('/')[-2:]
         image_path = osp.join(self.root, *image_path)
 
-        img = Image.open(image_path).convert('RGB')
-        img = self.transform(img)
+        # img = Image.open(image_path).convert('RGB')
+        img = cv2.imread(image_path)
 
         bboxes, phrases = self.target_transform(regions,
                                                 self.corpus,
@@ -497,4 +500,16 @@ class VisualGenomeLoader(data.Dataset):
                                                 self.obj_idx,
                                                 image_info.height,
                                                 image_info.width)
+
+        if self.transform is not None:
+            bboxes = np.array(bboxes)
+            img, boxes, labels = self.transform(img, bboxes[:, :4],
+                                                bboxes[:, 4])
+            # img = img.transpose(2, 0, 1)
+            bboxes = np.hstack((boxes, np.expand_dims(labels, axis=1)))
+
+        img = img[:, :, (2, 1, 0)]
+        img = Image.fromarray(img)
+        img = self.additional_transform(img)
+
         return image_info.id, img, bboxes, phrases
