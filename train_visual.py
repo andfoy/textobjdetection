@@ -15,6 +15,7 @@ from ssd import v2
 from ssd.ssd import build_ssd
 from lstm_model import RNNModel
 from ssd.layers.modules import MultiBoxLoss
+from ssd.utils.augmentations import SSDAugmentation
 
 # from ssd.data import BaseTransform
 from torch.utils.data import DataLoader
@@ -77,6 +78,8 @@ parser.add_argument('--save', type=str, default='ssd.pt',
                     help='location to SSD state dict file')
 parser.add_argument('--lang', action='store_true',
                     help='train SSD model with language features')
+parser.add_argument('--parallel', action='store_true',
+                    help='train SSD over multiple GPUs')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -91,20 +94,21 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
 cfg = v2
-num_classes = args.num_classes
+num_classes = args.num_classes + 1
 ssd_dim = 300
 batch_size = args.batch_size
 group = not args.lang
 
 print('Loading train data...')
 trainset = VisualGenomeLoader(args.data,
-                              transform=transforms.Compose([
+                              additional_transform=transforms.Compose([
                                   ResizeTransform((300, 300)),
                                   transforms.ToTensor(),
                                   transforms.Normalize(
                                       mean=[0.485, 0.456, 0.406],
                                       std=[0.229, 0.224, 0.225])]),
                               target_transform=AnnotationTransform(),
+                              transform=SSDAugmentation(),
                               top=args.num_classes,
                               group=group)
 
@@ -119,7 +123,7 @@ trainset = VisualGenomeLoader(args.data,
 
 print('Loading validation data...')
 validation = VisualGenomeLoader(args.data,
-                                transform=transforms.Compose([
+                                additional_transform=transforms.Compose([
                                     ResizeTransform((300, 300)),
                                     transforms.ToTensor(),
                                     transforms.Normalize(
@@ -141,7 +145,6 @@ print('Loading base network...')
 # # print('Loading base network...')
 # net.vgg.load_state_dict(vgg_weights)
 
-# if args.cuda:
 #     net.cuda()
 #     cudnn.benchmark = True
 
@@ -155,10 +158,12 @@ for layer in vgg:
 
 # net.load_state_dict(state_dict)
 
+
+net.load_state_dict(state_dict)
+
 if args.cuda:
     net.cuda()
 
-net.load_state_dict(state_dict)
 
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
@@ -207,6 +212,9 @@ else:
     net.extras.apply(weights_init)
     net.loc.apply(weights_init)
     net.conf.apply(weights_init)
+
+if args.parallel:
+    net = nn.DataParallel(net)
 
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=args.momentum, weight_decay=args.weight_decay)
@@ -309,7 +317,11 @@ if __name__ == '__main__':
             if best_val_loss is None or val_loss < best_val_loss:
                 file_name = osp.join(args.save_folder, args.save)
                 with open(file_name, 'wb') as f:
-                    torch.save(net.state_dict(), f)
+                    if args.parallel:
+                        state_dict = net.module.state_dict()
+                    else:
+                        state_dict = net.state_dict()
+                    torch.save(state_dict, f)
             else:
                 adjust_learning_rate(optimizer, args.gamma, epoch)
     except KeyboardInterrupt:
