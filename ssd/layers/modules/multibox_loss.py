@@ -5,6 +5,8 @@ from torch.autograd import Variable
 from ssd.data import v2 as cfg
 from ..box_utils import match, log_sum_exp
 
+torch.set_default_tensor_type('torch.cuda.FloatTensor')
+
 
 class MultiBoxLoss(nn.Module):
     """SSD Weighted Loss Function
@@ -62,8 +64,8 @@ class MultiBoxLoss(nn.Module):
         num_priors = (priors.size(0))
 
         # match priors (default boxes) and ground truth boxes
-        loc_t = torch.Tensor(num, num_priors, 4).cuda()
-        conf_t = torch.LongTensor(num, num_priors).cuda()
+        loc_t = torch.Tensor(num, num_priors, 4)
+        conf_t = torch.LongTensor(num, num_priors)
         for idx in range(num):
             truths = targets[idx][:, :-1].data
             labels = targets[idx][:, -1].data
@@ -74,8 +76,8 @@ class MultiBoxLoss(nn.Module):
             loc_t = loc_t.cuda()
             conf_t = conf_t.cuda()
         # wrap targets
-        loc_t = Variable(loc_t, requires_grad=False).cuda()
-        conf_t = Variable(conf_t, requires_grad=False).cuda()
+        loc_t = Variable(loc_t, requires_grad=False)
+        conf_t = Variable(conf_t, requires_grad=False)
 
         pos = conf_t > 0
         num_pos = pos.sum()
