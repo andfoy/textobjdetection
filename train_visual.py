@@ -158,7 +158,6 @@ for layer in vgg:
 # net.load_state_dict(state_dict)
 
 if args.cuda:
-    net = torch.nn.DataParallel(net)
     net.cuda()
 
 net.load_state_dict(state_dict)
@@ -176,6 +175,9 @@ lang_model.eval()
 with open(args.lang_model, 'rb') as f:
     state_dict = torch.load(f)
     lang_model.load_state_dict(state_dict)
+
+if args.cuda:
+    net = torch.nn.DataParallel(net)
 
 
 def xavier(param):
