@@ -511,6 +511,8 @@ class VisualGenomeLoader(data.Dataset):
         img = img[:, :, (2, 1, 0)]
         print(type(img))
         print(img.shape)
+        print(img.dtype)
+        print(np.max(img))
         img = Image.fromarray(img)
         # img = torch.from_numpy(img).permute(2, 0, 1)
         img = self.additional_transform(img)
