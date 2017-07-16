@@ -11,7 +11,7 @@ To execute this, you must have Python 3.6.*, [PyTorch](http://pytorch.org/), [Op
 
 ```bash
 conda install pytorch torchvision cuda80 -c soumith
-conda install opencv3 -c menpo
+conda install opencv -c conda-forge
 conda install matplotlib numpy
 conda install aria2 -c bioconda
 pip install visual-genome
