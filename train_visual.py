@@ -158,6 +158,7 @@ for layer in vgg:
 # net.load_state_dict(state_dict)
 
 if args.cuda:
+    net = torch.nn.DataParallel(net)
     net.cuda()
 
 net.load_state_dict(state_dict)
