@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-from data import v2 as cfg
+from ssd.data import v2 as cfg
 from ..box_utils import match, log_sum_exp
 
 
