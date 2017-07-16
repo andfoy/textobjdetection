@@ -510,6 +510,9 @@ class VisualGenomeLoader(data.Dataset):
 
         img = img[:, :, (2, 1, 0)]
         img = Image.fromarray(img)
+        print(type(img))
+        print(img.shape)
+        # img = torch.from_numpy(img).permute(2, 0, 1)
         img = self.additional_transform(img)
 
         return image_info.id, img, bboxes, phrases
