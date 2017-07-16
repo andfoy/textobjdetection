@@ -78,6 +78,8 @@ parser.add_argument('--save', type=str, default='ssd.pt',
                     help='location to SSD state dict file')
 parser.add_argument('--lang', action='store_true',
                     help='train SSD model with language features')
+parser.add_argument('--parallel', action='store_true',
+                    help='train SSD over multiple GPUs')
 # parser.add_argument('--top', type=int, default=150,
 #                     help='pick top N visual categories')
 
@@ -160,7 +162,6 @@ for layer in vgg:
 net.load_state_dict(state_dict)
 
 if args.cuda:
-    net = nn.DataParallel(net)
     net.cuda()
 
 
@@ -211,6 +212,9 @@ else:
     net.extras.apply(weights_init)
     net.loc.apply(weights_init)
     net.conf.apply(weights_init)
+
+if args.parallel:
+    net = nn.DataParallel(net)
 
 optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=args.momentum, weight_decay=args.weight_decay)
@@ -313,7 +317,11 @@ if __name__ == '__main__':
             if best_val_loss is None or val_loss < best_val_loss:
                 file_name = osp.join(args.save_folder, args.save)
                 with open(file_name, 'wb') as f:
-                    torch.save(net.state_dict(), f)
+                    if args.parallel:
+                        state_dict = net.module.state_dict()
+                    else:
+                        state_dict = net.state_dict()
+                    torch.save(state_dict, f)
             else:
                 adjust_learning_rate(optimizer, args.gamma, epoch)
     except KeyboardInterrupt:
