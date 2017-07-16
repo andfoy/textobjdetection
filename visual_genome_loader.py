@@ -509,9 +509,9 @@ class VisualGenomeLoader(data.Dataset):
             bboxes = np.hstack((boxes, np.expand_dims(labels, axis=1)))
 
         img = img[:, :, (2, 1, 0)]
-        img = Image.fromarray(img)
         print(type(img))
         print(img.shape)
+        img = Image.fromarray(img)
         # img = torch.from_numpy(img).permute(2, 0, 1)
         img = self.additional_transform(img)
 
