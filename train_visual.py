@@ -143,9 +143,6 @@ print('Loading base network...')
 # # print('Loading base network...')
 # net.vgg.load_state_dict(vgg_weights)
 
-if args.cuda:
-    net = torch.nn.DataParallel(net)
-
 #     net.cuda()
 #     cudnn.benchmark = True
 
@@ -159,10 +156,13 @@ for layer in vgg:
 
 # net.load_state_dict(state_dict)
 
-if args.cuda:
-    net.cuda()
 
 net.load_state_dict(state_dict)
+
+if args.cuda:
+    net = nn.DataParallel(net)
+    net.cuda()
+
 
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
