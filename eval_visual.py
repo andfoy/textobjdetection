@@ -586,7 +586,8 @@ if __name__ == '__main__':
     # dataset = VOCDetection(VOCroot, set_type, None, AnnotationTransform())
     print('Loading test data...')
     testset = VisualGenomeLoader(args.data,
-                                 transform=transforms.Compose([
+                                 transform=None,
+                                 additional_transform=transforms.Compose([
                                      ResizeTransform((300, 300)),
                                      transforms.ToTensor(),
                                      transforms.Normalize(
