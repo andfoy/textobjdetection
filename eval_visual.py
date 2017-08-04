@@ -107,7 +107,7 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
 cfg = v2
-num_classes = args.num_classes
+num_classes = args.num_classes + 1
 ssd_dim = 300
 # batch_size = args.batch_size
 group = not args.lang
@@ -578,7 +578,7 @@ def evaluate_detections(box_list, output_dir, dataset):
 
 if __name__ == '__main__':
     # load net
-    net = build_ssd('test', 300, args.num_classes)    # initialize SSD
+    net = build_ssd('test', 300, num_classes)    # initialize SSD
     net.load_state_dict(torch.load(args.trained_model))
     net.eval()
     print('Finished loading model!')
@@ -586,7 +586,8 @@ if __name__ == '__main__':
     # dataset = VOCDetection(VOCroot, set_type, None, AnnotationTransform())
     print('Loading test data...')
     testset = VisualGenomeLoader(args.data,
-                                 transform=transforms.Compose([
+                                 transform=None,
+                                 additional_transform=transforms.Compose([
                                      ResizeTransform((300, 300)),
                                      transforms.ToTensor(),
                                      transforms.Normalize(
