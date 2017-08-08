@@ -148,6 +148,23 @@ print('Loading base network...')
 #     net.cuda()
 #     cudnn.benchmark = True
 
+vgg = models.vgg16(pretrained=True).state_dict()
+
+state_dict = net.state_dict()
+for layer in vgg:
+    if layer.startswith('features'):
+        _, layer_name = layer.split('features.')
+        state_dict['vgg.' + layer_name] = vgg[layer]
+
+# net.load_state_dict(state_dict)
+
+
+net.load_state_dict(state_dict)
+
+if args.cuda:
+    net.cuda()
+
+
 print('Loading RNN model...')
 ntokens = len(trainset.corpus.dictionary)
 lang_model = RNNModel(args.rnn_model, ntokens, args.emsize, args.nhid,
@@ -188,31 +205,13 @@ if osp.exists(weights_path):
     print("Loading snapshot...")
     with open(weights_path, 'rb') as f:
         state_dict = torch.load(f)
-        initial_state = net.state_dict()
-        for layer in state_dict:
-            if state_dict[layer].size() == initial_state[layer].size():
-                initial_state[layer] = state_dict[layer]
-        net.load_state_dict(initial_state)
+        net.load_state_dict(state_dict)
 else:
     print('Initializing weights...')
     # initialize newly added layers' weights with xavier method
-    vgg = models.vgg16(pretrained=True).state_dict()
-
-    state_dict = net.state_dict()
-    for layer in vgg:
-        if layer.startswith('features'):
-            _, layer_name = layer.split('features.')
-            state_dict['vgg.' + layer_name] = vgg[layer]
-
-    net.load_state_dict(state_dict)
-
     net.extras.apply(weights_init)
     net.loc.apply(weights_init)
     net.conf.apply(weights_init)
-
-
-if args.cuda:
-    net.cuda()
 
 if args.parallel:
     net = nn.DataParallel(net)
